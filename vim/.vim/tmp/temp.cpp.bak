@@ -1,0 +1,38 @@
+#include<iostream>
+#include<vector>
+using std::vector;
+using std::cout;
+using std::endl;
+
+void heap_sort(vector<int> &nums)
+{
+  if(nums.empty()||nums.size()==1)
+    return;
+  int len=nums.size();
+
+  for(int i=len/2;i>=0;--i)
+  {
+    if(nums[2*i]<nums[2*i+1])//child  left>right
+      std::swap(nums[2*i],nums[2*i+1]);
+    if(nums[i]<nums[2*i])//left
+    {
+      std::swap(nums[i],nums[2*i]);
+      if(nums[2*i]<nums[2*i+1])
+        std::swap(nums[2*i],nums[2*i+1]);
+    }
+  }
+}
+
+int main()
+{
+  vector<int> nums{1,2,3,4,5};
+  heap_sort(nums);
+
+  for(auto & v:nums)
+  {
+    cout<<v<<' ';
+  }
+  cout<<endl;
+
+  return 0;
+}

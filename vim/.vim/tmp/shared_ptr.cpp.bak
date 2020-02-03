@@ -1,0 +1,14 @@
+#include<iostream>
+#include<memory>
+using std::endl;
+using std::cin;
+using std::cout;
+
+int main()
+{
+	std::shared_ptr<int> nullp;
+	std::shared_ptr<int> ip=std::make_shared<int>(5);
+	cout<<std::boolalpha<<static_cast<bool>(ip)<<endl;
+
+	return 0;
+}
