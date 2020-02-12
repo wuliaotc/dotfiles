@@ -1,5 +1,0 @@
-function ctl
-	systemctl
-end
- 
- 
