@@ -16,6 +16,7 @@
 if !exists('g:bundles')
 	let g:bundles = ['ycm']
 	" let g:bundles += ['ale']
+	let g:bundles += ['neomake']
 	let g:bundles += ['airline']
 	let g:bundles += ['cppenhanced']
 	let g:bundles += ['echodoc']
