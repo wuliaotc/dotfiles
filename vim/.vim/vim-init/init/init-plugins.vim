@@ -22,6 +22,7 @@ if !exists('g:bundles')
 	let g:bundles += ['echodoc']
 	let g:bundles += ['clang-format']
 	let g:bundles += ['gutentags']
+	let g:bundles += ['LeaderF']
 endif
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
@@ -73,6 +74,8 @@ Plug 'mhinz/vim-signify'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
 
+" LeaderF
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 call plug#end()
 "--------------------------------------------------------------------
 " vim-cpp-enhanced-highlight配置项
@@ -129,6 +132,44 @@ if index(g:bundles, 'echodoc') >= 0
 	let g:echodoc_enable_at_startup = 1
 endif
 
+"--------------------------------------------------------------------
+" LeaderF配置项
+"--------------------------------------------------------------------
+"	
+if index(g:bundles, 'LeaderF') >= 0
+    let g:Lf_GtagsAutoGenerate = 0
+    let g:Lf_PreviewInPopup = 1
+    " CTRL+p 打开文件模糊匹配
+    let g:Lf_ShortcutF = '<C-P>'
+    
+    " 最大历史文件保存 2048 个
+    let g:Lf_MruMaxFiles = 2048
+    
+    let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+    let g:Lf_WorkingDirectoryMode = 'Ac'
+    let g:Lf_WindowHeight = 0.30
+    let g:Lf_CacheDirectory = '~/.vim/cache'
+    
+    " 显示绝对路径
+    let g:Lf_ShowRelativePath = 0
+
+    " 隐藏帮助
+    let g:Lf_HideHelp = 1
+    
+    " 模糊匹配忽略扩展名
+    let g:Lf_WildIgnore = {
+                \ 'dir': ['.svn','.git','.hg'],
+                \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+                \ }
+
+    " MRU 文件忽略扩展名
+    let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
+    
+    let g:Lf_StlColorscheme = 'powerline'
+
+    " 禁用 function/buftag 的预览功能，可以手动用 p 预览
+    let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+endif
 "--------------------------------------------------------------------
 " gutentags
 "--------------------------------------------------------------------
