@@ -148,7 +148,7 @@ if index(g:bundles, 'LeaderF') >= 0
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_WindowHeight = 0.30
-    let g:Lf_CacheDirectory = '~/.vim/cache'
+    let g:Lf_CacheDirectory = expand('~/.vim/cache')
     
     " 显示绝对路径
     let g:Lf_ShowRelativePath = 0
