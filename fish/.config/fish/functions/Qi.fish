@@ -1,3 +1,3 @@
 function Qi
-	sudo pacman -Qi
+	pacman -Qi $argv
 end

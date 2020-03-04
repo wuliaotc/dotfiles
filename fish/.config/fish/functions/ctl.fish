@@ -1,5 +1,3 @@
 function ctl
-	systemctl
+	systemctl $argv
 end
- 
- 

@@ -1,3 +1,3 @@
 function Ql
-	sudo pacman -Ql
+	pacman -Ql $argv
 end
