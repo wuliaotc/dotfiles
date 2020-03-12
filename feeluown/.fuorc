@@ -2,7 +2,7 @@ import os
 
 
 # 自定义配置
-config.THEME = 'light'
+config.THEME = 'macos_dark'
 config.COLLECTIONS_DIR = '~/Dropbox/public/music'
 config.AUDIO_SELECT_POLICY = '>>>'
 
