@@ -22,7 +22,7 @@ if !exists('g:bundles')
 	let g:bundles += ['cppenhanced']
 	" let g:bundles += ['echodoc']
 	let g:bundles += ['clang-format']
-	" let g:bundles += ['gutentags']
+	let g:bundles += ['gutentags']
 	let g:bundles += ['LeaderF']
 	let g:bundles += ['coc']
 endif
@@ -68,15 +68,15 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
 " python 语法文件增强
-Plug 'vim-python/python-syntax', { 'for': ['python'] }
+" Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
 Plug 'rhysd/vim-clang-format'
 
 Plug 'mhinz/vim-signify'
 
 " gutentags 自动索引
-" Plug 'ludovicchabant/vim-gutentags'
-" Plug 'skywind3000/gutentags_plus'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
 
 " LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
@@ -252,6 +252,22 @@ if index(g:bundles, 'airline') >= 0
 	let g:airline#extensions#fugitiveline#enabled = 0
 	let g:airline#extensions#csv#enabled = 0
 	let g:airline#extensions#vimagit#enabled = 0
+	if index(g:bundles, 'coc') >= 0
+        " enable/disable coc integration
+        let g:airline#extensions#coc#enabled = 1
+    
+        " change error symbol:  
+        let airline#extensions#coc#error_symbol = 'E:'
+    
+        " change warning symbol:
+        let airline#extensions#coc#warning_symbol = 'W:'
+    
+        " change error format:
+        let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+                                                    
+        " change warning format:                      
+        let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+    endif
 endif
 "--------------------------------------------------------------------
 " neomake配置项
@@ -439,7 +455,7 @@ if index(g:bundles, 'clang-format') >= 0
 			\ "MaxEmptyLinesToKeep" : 1,
 			\ "KeepEmptyLinesAtTheStartOfBlocks" : "false",
 			\ "NamespaceIndentation" : "None",
-			\ "ObjCBlockIndentWidth" : 2,
+			\ "ObjCBlockIndentWidth" : 4,
 			\ "ObjCSpaceAfterProperty" : "false",
 			\ "ObjCSpaceBeforeProtocolList" : "false",
 			\ "PenaltyBreakBeforeFirstCallParameter" : 1,
@@ -449,11 +465,11 @@ if index(g:bundles, 'clang-format') >= 0
 			\ "PenaltyExcessCharacter" : 1000000,
 			\ "PenaltyReturnTypeOnItsOwnLine" : 200,
 			\ "PointerAlignment" : "Left",
-			\ "SpacesBeforeTrailingComments" : 2,
+			\ "SpacesBeforeTrailingComments" : 4,
 			\ "Cpp11BracedListStyle" : "true",
 			\ "Standard" : "Auto",
-			\ "IndentWidth" : 2,
-			\ "TabWidth" : 2,
+			\ "IndentWidth" : 4,
+			\ "TabWidth" : 4,
 			\ "UseTab" : "Always",
 			\ "BreakBeforeBraces" : "Attach",
 			\ "SpacesInParentheses" : "false",
@@ -464,7 +480,7 @@ if index(g:bundles, 'clang-format') >= 0
 			\ "SpaceAfterCStyleCast" : "false",
 			\ "SpacesInContainerLiterals" : "true",
 			\ "SpaceBeforeAssignmentOperators" : "true",
-			\ "ContinuationIndentWidth" : 2 }
+			\ "ContinuationIndentWidth" : 4 }
 endif
 "----------------------------------------------------------------------
 " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
