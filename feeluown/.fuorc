@@ -5,93 +5,10 @@ from functools import partial
 
 # 自定义配置
 config.THEME = 'macos_dark'
-config.COLLECTIONS_DIR = '~/Dropbox/public/music'
 config.AUDIO_SELECT_POLICY = '>>>'
 
-
-# 一个小功能：切换歌曲时，发送系统通知
-def notify_song_changed(song):
-    if song is not None:
-        title = song.title_display
-        artists_name = song.artists_name_display
-        song_str = f'{title}-{artists_name}'
-        os.system(f'notify-send "{song_str}"')
-
-when('app.player.playlist.song_changed', notify_song_changed)
-
-# 让编辑器识别这是一个 Python 文件
-#
-# Local Variables:
-# mode: python
-# End:
-#
-# vim: ft=python
-
-# -*- mode: Python; -*-
-# vi: ft=python
-
-
-
-config.AUDIO_SELECT_POLICY = 'sq>>>'
-
-
-netease_log_song = None
-
-
-def netease_log_on_song_changed(song):
-    global app, netease_log_song
-
-    if song is None or song.source != 'netease':
-        netease_log_song = None
-        return
-
-    netease_log_song = song
-    threading.Thread(target=partial(netease_log_send_request, song)).start()
-
-
-def netease_log_on_media_finished(*args):
-    global netease_log_song
-
-    if netease_log_song is None:
-        return
-
-    song = netease_log_song
-    threading.Thread(
-        target=partial(netease_log_send_request, song, end=True)).start()
-    netease_log_song = None
-
-
-def netease_log_send_request(song, end=False):
-    provider = app.library.get('netease')
-    # TODO: provider should provide a interface to check the current user
-    if provider is None or provider._user is None:
-        return
-
-    url = 'https://music.163.com/weapi/feedback/weblog'
-    json_ = {
-        'id': str(song.identifier),
-        'source': 'album',  # TODO: use correct type
-        'sourceid': str(song.album.identifier),
-        'type': 'song',
-    }
-    if end is True:
-        sourceid = json_.pop('sourceid')
-        json_['sourceId'] = sourceid
-        json_['id'] = int(json_['id'])
-        json_['download'] = 0
-        json_['end'] = "ui"
-        json_['wifi'] = 0
-        json_['time'] = int(song.duration//1000)
-    data = {
-        'logs': json.dumps([{
-            'action': 'play',
-            'json': json_
-        }])
-    }
-    payload = provider.api.encrypt_request(data)
-    result = provider.api.request('POST', url, payload)
-    print(f'send log:{data} to netease: {result}')
-
-
-when('app.player.playlist.song_changed', netease_log_on_song_changed, use_symbol=True)
-when('app.player.media_finished', netease_log_on_media_finished, use_symbol=True)
+config.ENABLE_TRAY = True # 是否启用系统托盘
+config.NOTIFY_ON_TRACK_CHANGED = False # 切换歌曲时显示桌面通知
+config.NOTIFY_DURATION = 5000 # 桌面通知保留时长（毫秒）
+config.MINIMIZE_TO_TRAY = False # 启用最小化到系统托盘，点击托盘图标恢复
+config.CLOSE_TO_TRAY = True # 启用关闭窗口时最小化到系统托盘，右击托盘图标可退出

@@ -25,6 +25,7 @@ if !exists('g:bundles')
 	let g:bundles += ['gutentags']
 	let g:bundles += ['LeaderF']
 	let g:bundles += ['coc']
+	let g:bundles += ['vim-go']
 endif
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
@@ -69,6 +70,9 @@ Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
 " python 语法文件增强
 " Plug 'vim-python/python-syntax', { 'for': ['python'] }
+
+" go fmt支持
+Plug 'fatih/vim-go'
 
 Plug 'rhysd/vim-clang-format'
 
