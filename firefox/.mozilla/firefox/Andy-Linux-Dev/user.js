@@ -1,3 +1,7 @@
+// 目的是在firefox上实现物理的平滑滚动
+//
+
+// 平滑滚动
 user_pref("general.smoothScroll.lines.durationMaxMS", 125);
 user_pref("general.smoothScroll.lines.durationMinMS", 125);
 user_pref("general.smoothScroll.mouseWheel.durationMaxMS", 200);
