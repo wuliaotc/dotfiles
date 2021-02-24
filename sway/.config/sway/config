@@ -1,0 +1,126 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+
+
+
+# Your preferred terminal emulator
+set $term alacritty
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
+set $menu exec $term --class=launcher -e /usr/bin/sway-launcher-desktop
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+set $wallpapers_path $HOME/Pictures/wallpaper
+output * bg $(find $wallpapers_path -type f | shuf -n 1) fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+#output HDMI1 pos 0 0 res 1920x1080
+#output eDP1 pos 1920 0 res 1600x900
+set $laptop eDP-1
+set $script_dir $HOME/.config/sway/script
+exec_always $script/clamshell_mode_fix.sh
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+### Idle configuration
+#
+# Example configuration:
+
+exec swayidle -w \
+		 timeout 300 'swaylock -f' \
+		 timeout 600 'swaymsg "output * dpms off"' \
+			resume 'swaymsg "output * dpms on";'\
+		 timeout 1200 'sleep 5;systemctl suspend'\
+		 before-sleep 'swaylock -f'\
+		 after-resume 'sleep 5 ;killall -SIGUSR2 waybar'\
+		 lock 'swaylock -f'
+#exec swayidle timeout 2 'swaylock -c 000000' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -c 000000' 
+
+
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+
+
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+#bar {
+#    position top
+#
+#    # When the status_command prints a new line to stdout, swaybar updates.
+#    # The default just shows the current date and time.
+#    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+#
+#    colors {
+#        statusline #ffffff
+#        background #323232
+#        inactive_workspace #32323200 #32323200 #5c5c5c
+#    }
+#}
+bar {
+    swaybar_command waybar
+}
+
+#
+# key enable
+# 
+#input * xkb_capslock enable
+input * xkb_numlock enable
+input type:keyboard {
+    xkb_layout us
+	xkb_options caps:escape
+}
+
+#
+# disable focus follow mouse
+#
+focus_follows_mouse no
+#
+# import user config
+#
+include $HOME/.config/sway/config.d/*
+
+
+
+# https //github.com/swaywm/sway/issues/5732 
+# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# exec systemctl --user import-environment
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+exec systemctl --user import-environment SWAYSOCK \
+			DISPLAY \
+			I3SOCK \
+			WAYLAND_DISPLAY \
+			XCURSOR_SIZE \
+			XCURSOR_THEME \
+	&& systemd-notify --ready

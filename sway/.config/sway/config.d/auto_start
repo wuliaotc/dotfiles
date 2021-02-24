@@ -1,0 +1,20 @@
+### autostart
+set $wait_time 10
+# for geoclue
+exec 'sleep $wait_time;sway-launcher-desktop run-desktop /etc/xdg/autostart/geoclue-demo-agent.desktop'
+
+# 
+exec 'sleep $wait_time;gammastep -m wayland&'
+# bluetooth
+exec 'sleep $wait_time;blueman-applet&'
+# ime
+exec 'sleep $wait_time;fcitx5 &'
+# notify
+exec 'sleep $wait_time;mako &'
+# app
+exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop'
+exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications/qv2ray.desktop'
+exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications/com.github.hluk.copyq.desktop'
+
+exec 'sleep $wait_time;nm-applet --indicator&'
+exec 'sleep $wait_time;kdeconnect-indicator&'

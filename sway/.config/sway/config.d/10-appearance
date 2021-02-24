@@ -1,0 +1,22 @@
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:Fira Code Medium 9
+#font pango:Montaga Regular 10
+#font pango:Almendra Regular 0
+
+font pango:Noto Sans CJK SC Bold 8
+# borders
+default_border none
+default_floating_border normal
+
+# Base colors
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+# opne smart_gaps
+smart_gaps open
