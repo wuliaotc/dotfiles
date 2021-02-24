@@ -34,10 +34,6 @@ alias Sy="sudo pacman -Sy"
 # custom
 alias setproxy="export all_proxy=socks5://127.0.0.1:1080"
 
-export PATH=$PATH:~/.node_modules/bin:
-export GOPATH="/home/andy/Documents/program/go"
-export npm_config_prefix="~/.node_modules"
-
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
