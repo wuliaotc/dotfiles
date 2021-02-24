@@ -26,6 +26,7 @@ if !exists('g:bundles')
 	let g:bundles += ['LeaderF']
 	let g:bundles += ['coc']
 	let g:bundles += ['vim-go']
+	let g:bundles += ['nerdtree']
 endif
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
@@ -84,7 +85,14 @@ Plug 'skywind3000/gutentags_plus'
 
 " LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" nerdtree
+Plug 'preservim/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" tabnine
+" Plug 'zxqfl/tabnine-vim'
 
+" sonokai color scheme , fork from monokai
+Plug 'sainnhe/sonokai'
 call plug#end()
 "--------------------------------------------------------------------
 " coc配置项
@@ -131,9 +139,9 @@ if index(g:bundles, 'coc') >= 0
 	" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 	" position. Coc only does snippet and additional edit on confirm.
 	if exists('*complete_info')
-	inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+		inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 	else
-	imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+		imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 	endif
 
 	" Use `[g` and `]g` to navigate diagnostics
@@ -214,21 +222,21 @@ if index(g:bundles, 'coc') >= 0
 
 	" Mappings using CoCList:
 	" Show all diagnostics.
-	nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+	"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 	" Manage extensions.
-	nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+	"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 	" Show commands.
-	nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+	"nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 	" Find symbol of current document.
-	nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+	"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 	" Search workspace symbols.
-	nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+	"nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 	" Do default action for next item.
-	nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+	"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 	" Do default action for previous item.
-	nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+	"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 	" Resume latest coc list.
-	nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+	"nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 endif
 
 "--------------------------------------------------------------------
@@ -304,6 +312,44 @@ if index(g:bundles, 'echodoc') >= 0
 endif
 
 "--------------------------------------------------------------------
+" nerdtree 配置项
+"--------------------------------------------------------------------
+"	
+if index(g:bundles, 'nerdtree') >= 0
+
+	let g:NERDTreeWinSize = 25 "设定 NERDTree 视窗大小
+	let NERDTreeShowBookmarks=1  " 开启Nerdtree时自动显示Bookmarks
+	"打开vim时如果没有文件自动打开NERDTree
+	" Start NERDTree when Vim is started without file arguments.
+	autocmd StdinReadPre * let s:std_in=1
+	autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+	" autocmd vimenter * if !argc()|NERDTree|endif
+	"当NERDTree为剩下的唯一窗口时自动关闭
+	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+	" 设置树的显示图标
+	let g:NERDTreeDirArrowExpandable = '+'
+	let g:NERDTreeDirArrowCollapsible = '-'
+	" let NERDTreeIgnore = ['\.pyc$']  " 过滤所有.pyc文件不显示
+	let g:NERDTreeShowLineNumbers=0 " 是否显示行号
+	let g:NERDTreeHidden=0     "不显示隐藏文件
+	""Making it prettier
+	let NERDTreeMinimalUI = 1
+
+	let NERDTreeDirArrows = 1
+
+	let g:NERDTreeMinimalUI = 1
+	let g:NERDTreeDirArrows = 1
+	let g:NERDTreeHijackNetrw = 0
+	noremap <space>nn :NERDTree<cr>
+	noremap <space>no :NERDTreeFocus<cr>
+	noremap <space>nm :NERDTreeMirror<cr>
+	noremap <space>nt :NERDTreeToggle<cr>
+
+endif
+
+
+"--------------------------------------------------------------------
 " LeaderF配置项
 "--------------------------------------------------------------------
 "	
@@ -346,7 +392,9 @@ endif
 "--------------------------------------------------------------------
 "	
 if index(g:bundles, 'gutentags') >= 0
-
+    "let $GTAGSCONF = '/path/to/share/gtags/gtags.conf'
+    let $GTAGSLABEL = 'native-pygments'
+    let $GTAGSCONF = expand('~/.globalrc')
     " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
