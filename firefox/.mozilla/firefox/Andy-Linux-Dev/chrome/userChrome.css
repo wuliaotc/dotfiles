@@ -1,13 +1,24 @@
 /*AGENT_SHEET*/
-#TabsToolbar {
+/*#TabsToolbar {
     visibility: collapse !important;
-}
+}*/
 
 /* remove maximum/minimum  width restriction of sidebar */
-#sidebar {
+/*#sidebar {
     max-width: none !important;
     min-width: 0px !important;
-}
+}*/
+/****** flyingFox *************/
+@import "config.css";
+@import "variables.css";
+@import "icons/icons.css";
+@import "urlbar/urlbar.css";
+@import "navbar/navbar.css";
+@import "popup/popup.css";
+@import "interface/interface.css";
+@import "userChrome-tabline.css";
+
+
 /****** simpleMenuWizard ******/
 
 /********************************************************
@@ -53,6 +64,6 @@
 /* @import url("./simpleMenuWizard/opt_noSendToDevice.css");
 
 /*** Hide all inactive menu items ***/
-#mainPopupSet menuitem[disabled="true"] { display: none !important; }
+/*#mainPopupSet menuitem[disabled="true"] { display: none !important; }*/
 
 /****** simpleMenuWizard end ******/
