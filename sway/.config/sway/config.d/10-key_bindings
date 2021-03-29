@@ -191,3 +191,10 @@ bindsym $mod+r mode "resize"
     # start golden_dict
     set $run_goldendict exec goldendict
     bindsym Ctrl+F11 exec $run_goldendict
+
+    # toggle waybar
+    bindsym $mod+h exec killall -SIGUSR1 waybar
+    
+    # copyq dmenu
+    set $copyq_dmenu exec $HOME/.config/copyq/script/copyq_all_wofi.sh
+    bindsym $mod+c exec $copyq_dmenu
