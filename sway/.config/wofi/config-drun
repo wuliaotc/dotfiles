@@ -1,0 +1,8 @@
+mode=drun
+insensitive=true
+prompt=
+width=300
+height=180
+term=alacritty
+hide_scroll=true
+location=0
