@@ -5,6 +5,7 @@ exec 'sleep $wait_time;sway-launcher-desktop run-desktop /etc/xdg/autostart/geoc
 
 # 
 exec 'sleep $wait_time;gammastep -m wayland&'
+exec 'sleep $wait_time;gammastep-indicator&'
 # bluetooth
 exec 'sleep $wait_time;blueman-applet&'
 # ime
@@ -16,5 +17,5 @@ exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications
 exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications/qv2ray.desktop'
 exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications/com.github.hluk.copyq.desktop'
 
-exec 'sleep $wait_time;nm-applet --indicator&'
+#exec 'sleep $wait_time;nm-applet --indicator&'
 exec 'sleep $wait_time;kdeconnect-indicator&'
