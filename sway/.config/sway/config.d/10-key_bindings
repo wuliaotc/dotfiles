@@ -176,7 +176,7 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | wl-copy
     bindsym Ctrl+Shift+Print exec grim -g "$(slurp)" - | swappy -f -
     # print current window
-    bindsym $mod+Print exec grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | wl-copy
+    bindsym $mod+Print exec swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' | grim -g - - | wl-copy
 
 
 
@@ -185,7 +185,7 @@ bindsym $mod+r mode "resize"
 #
 
     # lock
-    bindsym --release $mod+l exec loginctl lock-session
+    bindsym $mod+l exec loginctl lock-session
     bindsym Ctrl+Alt+Delete exec 'wlogout -b 2'
 
     # start golden_dict
