@@ -5,7 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 
-
+exec_always pkill kanshi; exec kanshi
 
 # Your preferred terminal emulator
 set $term alacritty
@@ -48,7 +48,7 @@ exec swayidle -w \
 			resume 'swaymsg "output * dpms on";'\
 		 timeout 1200 'sleep 5;systemctl suspend'\
 		 before-sleep 'swaylock -f'\
-		 after-resume 'sleep 5 ;killall -SIGUSR2 waybar'\
+		 after-resume 'sleep 5 ;killall -SIGUSR2 waybar;'\
 		 lock 'swaylock -f'
 #exec swayidle timeout 2 'swaylock -c 000000' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -c 000000' 
 
