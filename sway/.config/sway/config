@@ -16,9 +16,12 @@ set $term alacritty
 
 # for sway-launcher-desktop
 # 
-# for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
-# set $menu exec $term --class=launcher -e /usr/bin/sway-launcher-desktop
-set $menu exec wofi --conf $HOME/.config/wofi/config-drun --style $HOME/.config/wofi/style.css
+for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
+
+set $MENU_LOCK_DIR /tmp/sway.launcher.desktop.lock
+set $menu_lock mkdir "$MENU_LOCK_DIR" && trap 'rmdir "$MENU_LOCK_DIR"' EXIT INT 
+set $menu  $menu_lock && $term --class=launcher -e /usr/bin/sway-launcher-desktop
+#set $menu exec wofi --conf $HOME/.config/wofi/config-drun --style $HOME/.config/wofi/style.css
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -35,7 +38,7 @@ output * bg $(find $wallpapers_path -type f | shuf -n 1) fill
 #output eDP1 pos 1920 0 res 1600x900
 set $laptop eDP-1
 set $script_dir $HOME/.config/sway/script
-exec_always $script/clamshell_mode_fix.sh
+exec_always '$script/clamshell_mode_fix.sh'
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 ### Idle configuration
@@ -105,9 +108,21 @@ input type:keyboard {
 }
 
 #
-# disable focus follow mouse
+# focus setting
 #
-focus_follows_mouse no
+focus_follows_mouse yes
+#focus_on_window_activation smart
+
+# https //github.com/swaywm/sway/issues/5732 
+# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# exec systemctl --user import-environment
+set $VARIABLES 'DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP'
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd $VARIABLES
+exec systemctl --user import-environment $VARIABLES
+
+exec systemctl --user start sway-session.target
+exec systemd-notify --ready
 #
 # import user config
 #
@@ -115,16 +130,4 @@ include $HOME/.config/sway/config.d/*
 
 
 
-# https //github.com/swaywm/sway/issues/5732 
-# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-# exec systemctl --user import-environment
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec "systemctl --user import-environment; systemctl --user start sway-session.target"
-exec systemctl --user import-environment SWAYSOCK \
-			DISPLAY \
-			I3SOCK \
-			WAYLAND_DISPLAY \
-			XCURSOR_SIZE \
-			XCURSOR_THEME \
-	&& systemd-notify --ready
+

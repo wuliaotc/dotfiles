@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode","custom/media","custom/lyric"],
     "modules-center": ["network"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "cpu", "memory", "temperature", "battery", "clock", "custom/weather","tray"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "cpu", "memory", "temperature", "battery", "clock", "tray","custom/wallpaper"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -23,6 +23,10 @@
     //         "default": ""
     //     }
     // },
+    "custom/wallpaper": {
+        "format": "",
+        "on-click": "setrandom  /home/andy/Pictures/wallpaper/",
+    },
     "custom/lyric": {
         "format": "{icon}{}",
         //"return-type": "json",
@@ -118,8 +122,8 @@
         //"format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         //"format-linked": "{ifname} (No IP) ",
         "interval":1,
-        "format-ethernet": "{bandwidthUpBits:14} ↑ {bandwidthDownBits:14} ↓",
-        "format-wifi": "{bandwidthUpBits:14} ↑ {bandwidthDownBits:14} ↓",
+        "format-ethernet": "{bandwidthUpOctets:14} ↑ {bandwidthDownOctets:14} ↓",
+        "format-wifi": "{bandwidthUpOctets:14} ↑ {bandwidthDownOctets:14} ↓",
         "format-linked": "No IP",
         "format-disconnected": "Disconnected ⚠",
         "on-click":"/usr/bin/networkmanager_dmenu",

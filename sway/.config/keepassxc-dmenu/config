@@ -1,0 +1,4 @@
+set kpxc_database_path $::env(HOME)/syncthing/keepass/psd.kdbx
+set kpxc_dmenu {wofi --dmenu -i --location 0 }
+set kpxc_pinentry /usr/bin/pinentry-qt
+# set kpxc_timeout 60

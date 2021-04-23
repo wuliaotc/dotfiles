@@ -1,0 +1,14 @@
+profile single-HDMI {
+	output eDP-1 disable
+	output HDMI-A-1 enable
+}
+
+profile single {
+	output eDP-1 enable scale 1.25
+}
+
+profile double{
+	output HDMI-A-1 enable
+	output DP-1 enable 
+	output eDP-1 disable
+}

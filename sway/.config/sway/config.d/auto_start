@@ -1,14 +1,14 @@
 ### autostart
 set $wait_time 10
 
+exec /usr/lib/geoclue-2.0/demos/agent
 exec kanshi
 exec mako
-exec gammastep -m wayland
-
+exec polkit-dumb-agent
+exec 'sleep 1;gammastep -m wayland'
 # for geoclue
-exec 'sleep $wait_time;sway-launcher-desktop run-desktop /etc/xdg/autostart/geoclue-demo-agent.desktop'
+# exec 'sleep $wait_time;sway-launcher-desktop run-desktop /etc/xdg/autostart/geoclue-demo-agent.desktop'
 
-exec 'sleep $wait_time;gammastep-indicator'
 # bluetooth
 exec 'sleep $wait_time;blueman-applet'
 # ime
