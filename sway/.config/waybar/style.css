@@ -38,11 +38,9 @@
   border: none;
   border-radius: 0;
   font-family:
-    "Noto Sans CJK SC",
-    "FiraCode Nerd Font", /* `otf-font-awesome` */
-    "sans-serif";
-  font-weight: 400;
-  font-size: 12px;
+    "monospace"; /* `otf-font-awesome` */
+  font-weight: bold;
+  font-size: 14px;
   min-height: 0;
 }
 
@@ -75,21 +73,24 @@ window#waybar {
 #disk,
 #taskbar,
 #tray,
-#custom-wallpaper{
+#custom-wallpaper,
+#custom-colorchooser{
     padding: 1px 10px 0px 10px;
     margin: 5px 0px 5px 0px;
-    /*border-radius: 6px;*/
+    border-radius: 6px;
     background: @bgkgrey;
 }
-#network{
-    border-radius:6px;
+#custom-separator {
+	opacity: 0;
+	padding: 0px;
 }
 
 #custom-media,
 #custom-lyric{
   padding: 1px 10px 0px 10px;
   margin: 5px 0px 5px 0px;
-  background: @bgkdark
+  border-radius: 6px;
+  background: @bgkgrey;
 }
 
 #workspaces {
@@ -111,81 +112,14 @@ window#waybar {
 }
 
 
-#mode {
-    color: @red;
-}
-
-#disk,
-#memory{
-    padding-right: 5px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border-right: 0px;
-}
-
-#battery.warning,
-#cpu.warning,
-#disk.warning,
-#memory.warning {
-    color: @yellow;
-}
-
-#battery.critical,
-#cpu.critical,
-#disk.critical,
-#memory.critical {
-    color: @orange;
-}
-/*
-#taskbar,
-#tray,
-#window {
-    margin: 5px;
-    padding: 0;
-}
-#taskbar {
-    margin-top: 3px;
-}
-#taskbar button {
-    color: @lightblue;
-    border-radius: 6px;
-    padding: 5px 3px 1px 3px;
-}
-#taskbar button.active {
-    background: @nord3;
-}
-*/
-/*#tray
+#tray
 #window {
     padding: 5px 0px 5px 0px;
 }
-*/
-
-
 
 #mode {
     background: #64727D;
     border-bottom: 3px solid #ffffff;
-}
-
-/*#clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor {
-    padding: 0 10px;
-    margin: 0 5px;
-}
-*/
-
-#clock {
-    /*background-color: #64727D;*/
-    color: @nord5;
-    font-weight: bold;
-}
-
-#battery {
-    color: @nord5;
-}
-
-#battery.charging {
-    color: @nord5;
 }
 
 @keyframes blink {
@@ -204,59 +138,44 @@ window#waybar {
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
-
-#cpu {
-    /*background: #2ecc71;*/
+#clock,
+#battery.charging,
+#battery,
+#cpu ,
+#memory ,
+#backlight ,
+#network ,
+#network.disconnected ,
+#pulseaudio ,
+#pulseaudio.muted,
+#temperature,
+#tray{
     color: @nord5;
+    font-weight: bold;
 }
 
-#memory {
-    /*background: #9b59b6;*/
-    color: @nord5;
+#mode {
+    color: @red;
 }
 
-#backlight {
-    /*background: #90b1b1;*/
-    color: @nord5;
+#battery.warning,
+#cpu.warning,
+#disk.warning,
+#memory.warning {
+    color: @yellow;
 }
 
-#network {
-    /*background: #2980b9;*/
-    color: @nord5;
-}
-
-#network.disconnected {
-    /*background: #f53c3c;*/
-    color: @nord5;
-}
-
-#pulseaudio {
-    color: @nord5;
-    font-family:
-        "monospace",
-        "FiraCode Nerd Font"; /* `otf-font-awesome` */
-}
-
-#pulseaudio.muted {
-    color: @nord5;
-}
-
-#temperature {
-    /*background: #f0932b;*/
-    color: @nord5;
-}
-
-#temperature.critical {
-    background: @orange;
-}
-
-#tray {
-    /*background-color: #2980b9;*/
-    color: @nord5;
+#battery.critical,
+#cpu.critical,
+#disk.critical,
+#memory.critical,
+#temperature.critical{
+    color: @orange;
 }
 
 #idle_inhibitor {
-    background-color: #2d3436;
+    background-color: @bgkgrey;
+    color:@nord14
 }
 
 #idle_inhibitor.activated {

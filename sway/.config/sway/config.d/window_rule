@@ -10,7 +10,7 @@ for_window [window_role="Preferences"] floating enable
 for_window [window_role ="dialog"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-
+for_window [app_id="nvim-qt"] floating enable
 # Tag xwayland windows as such
 for_window [shell="xwayland"] title_format "<span>[X] %title</span>"
 

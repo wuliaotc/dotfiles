@@ -1,155 +1,174 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    //"height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode","custom/media","custom/lyric"],
-    "modules-center": ["network"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "cpu", "memory", "temperature", "battery", "clock", "tray","custom/wallpaper"],
-    // Modules configuration
-    // "sway/workspaces": {
-    //     "disable-scroll": true,
-    //     "all-outputs": true,
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "5": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-    //     }
-    // },
-    "custom/wallpaper": {
-        "format": "",
-        "on-click": "setrandom  /home/andy/Pictures/wallpaper/",
-    },
-    "custom/lyric": {
-        "format": "{icon}{}",
-        //"return-type": "json",
-        "max-length":70,
-        "exec": "echo 'sub topic.live_lyric' | nc 127.0.0.1 23334 2> /dev/null",
-        "exec-if":"pgrep feeluown",
-        "restart-interval":20,
-        "on-click": "playerctl play-pause",
-    },
-    "custom/weather": {
-        "format": "{}",
-        "tooltip": true,
-        "interval": 3600,
-        "exec": "$HOME/.config/waybar/waybar-wttr.py",
-        "return-type": "json"
-    },
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
-    "wlr/taskbar": {
-        "format": "{icon}",
-        "icon-size": 14,
-        "icon-theme": "Papirus-Dark",
-        "tooltip-format": "{title}",
-        "on-click": "activate",
-        "on-click-middle": "close"
-    },
-    "custom/media": {
-        "format": "{icon}{}",
-        "return-type": "json",
-        "format-icons": {
-            "Playing": " ",
-            "Paused": " ",
-        },
-        "max-length":70,
-        "exec": "playerctl metadata --format '{\"text\": \"{{title}}\", \"tooltip\": \"{{playerName}} : {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-        "on-click": "playerctl play-pause",
-    },
+	"layer": "top", // Waybar at top layer
+	"position": "top", // Waybar position (top|bottom|left|right)
+	"modules-left": 
+		[
+			"sway/workspaces","custom/separator",
+			"sway/mode","idle_inhibitor","custom/separator",
+			"custom/media"
+		],
+	"modules-center": 
+		[
+			"custom/lyric"
+		],
+	"modules-right": 
+		[
+			"pulseaudio","custom/separator",
+			"tray","custom/separator",
+			"network","custom/separator",
+			"battery", "custom/separator",
+			"clock","custom/separator",
+			"custom/wallpaper","custom/separator",
+		],
+	// Modules configuration
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"all-outputs": true,
+		"format": "{name}: {icon}",
+		"format-icons": {
+			 "1": "",
+			 "2": "",
+			 "3": "",
+			 "4": "",
+			 "5": "",
+			 "urgent": "",
+			 "focused": "",
+			 "default": ""
+		 }
+	 },
+	"custom/separator": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/wallpaper": {
+		"format": "",
+		"on-click": "setrandom	/home/andy/Pictures/wallpaper/",
+	},
+	"custom/colorchooser":{
+		"format":"",
+	   // "on-click": "grim -g \"$(slurp -p)\" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy",
+		"on-click": "$HOME/.config/waybar/colorChooser.sh"
+	},
+	"custom/lyric": {
+		"format": "{icon}{}",
+		"max-length":70,
+		"exec": "test $(pgrep feeluown | wc -l) -gt 0 && (echo 'sub topic.live_lyric' | nc 127.0.0.1 23334 2> /dev/null) || echo 'feeluown not start'",
+		//"exec-if":"$(pgrep feeluown | wc -l) -gt 0 ",
+		"restart-interval":20,
+		"on-click": "playerctl play-pause",
+	},
+	"custom/weather": {
+		"format": "{}",
+		"tooltip": true,
+		"interval": 3600,
+		"exec": "$HOME/.config/waybar/waybar-wttr.py",
+		"return-type": "json"
+	},
+	"sway/mode": {
+		"format": "<span style=\"italic\">{}</span>"
+	},
+	"wlr/taskbar": {
+		"format": "{icon}",
+		"icon-size": 14,
+		"icon-theme": "Papirus-Dark",
+		"tooltip-format": "{title}",
+		"on-click": "activate",
+		"on-click-middle": "close"
+	},
+	"custom/media": {
+		"format": "{icon}{}",
+		"return-type": "json",
+		"format-icons": {
+			"Playing": "",
+			"Paused": "",
+		},
+		"max-length":20,
+		"tooltip":"{}",
+		"exec": "playerctl metadata --format '{\"text\": \"{{title}}\", \"tooltip\": \"{{playerName}} : {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+		"on-click": "playerctl play-pause",
+	},
 
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "deactivated": "",
-            "activated": ""
-        }
-    },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-    },
-    "clock": {
-        // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", ""]
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        //"format-wifi": "{essid} ({signalStrength}%) ",
-        //"format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        //"format-linked": "{ifname} (No IP) ",
-        "interval":1,
-        "format-ethernet": "{bandwidthUpOctets:14} ↑ {bandwidthDownOctets:14} ↓",
-        "format-wifi": "{bandwidthUpOctets:14} ↑ {bandwidthDownOctets:14} ↓",
-        "format-linked": "No IP",
-        "format-disconnected": "Disconnected ⚠",
-        "on-click":"/usr/bin/networkmanager_dmenu",
-        //"format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "tooltip":true,
-        "tooltip-format": "{ifname} (No IP)",
-        "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
-        "tooltip-format-wifi": "{essid}: {ipaddr}/{cidr}",
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume:3}% {icon} {format_source}",
-        "format-bluetooth": "{volume:3}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume:3}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
+	"idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"deactivated": "",
+			"activated": ""
+		}
+	},
+	"tray": {
+		"spacing": 5,
+		"icon-size": 14,
+		"tooltip": false
+	},
+	"clock": {
+		// "timezone": "America/New_York",
+		"format": " {:%H:%M}",
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": "{:%Y-%m-%d}"
+	},
+	"cpu": {
+		"format": "{usage}% ",
+		"tooltip": false
+	},
+	"memory": {
+		"format": "{}% "
+	},
+	"temperature": {
+		"critical-threshold": 80,
+		// "format-critical": "{temperatureC}°C {icon}",
+		"format": "{temperatureC}°C {icon}",
+		"format-icons": ["", "", ""]
+	},
+	"backlight": {
+		// "device": "acpi_video1",
+		"format": "{percent}% {icon}",
+		"format-icons": ["", ""]
+	},
+	"battery": {
+		"states": {
+			"good": 80,
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{capacity}% {icon}",
+		"format-charging": "{capacity}% ",
+		"format-plugged": "{capacity}% ",
+		"format-plugged-good": "",
+		"format-alt": "{time} {icon}",
+		"format-icons": ["", "", "", "", ""]
+	},
+	"network": {
+		// "interface": "wlp2*", // (Optional) To force the use of this interface
+		"format-wifi": "{essid} ({signalStrength}%) ",
+		"format-ethernet": "",
+		"format-linked": "No IP",
+		"interval":1,
+		//"format-ethernet": "{bandwidthUpOctets:14} ↑ {bandwidthDownOctets:14} ↓",
+		//"format-wifi": "{bandwidthUpOctets:14} ↑ {bandwidthDownOctets:14} ↓",
+		"format-linked": "\uf65a",
+		"format-disconnected": "",
+		"on-click":"/usr/bin/networkmanager_dmenu",
+		//"format-alt": "{ifname}: {ipaddr}/{cidr}",
+		"tooltip":true,
+		"tooltip-format": "{bandwidthUpOctets:14} ↑ {bandwidthDownOctets:14} ↓",
+	},
+	"pulseaudio": {
+		// "scroll-step": 1, // %, can be a float
+		"format": "{volume:3}% {icon} {format_source}",
+		"format-bluetooth": "{volume:3}% {icon} {format_source}",
+		"format-bluetooth-muted": " {icon} {format_source}",
+		"format-muted": " {format_source}",
+		"format-source": "{volume:3}% ",
+		"format-source-muted": "",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["", "", ""]
+		},
+		"on-click": "pavucontrol"
+	},
 }

@@ -188,6 +188,9 @@ bindsym $mod+r mode "resize"
     bindsym $mod+l exec loginctl lock-session
     bindsym Ctrl+Alt+Delete exec 'wlogout -b 2'
 
+    #display
+    set $display_setting exec wlay
+    bindsym Ctrl+p exec $display_setting
     # start golden_dict
     set $run_goldendict exec goldendict
     bindsym Ctrl+F11 exec $run_goldendict
@@ -198,3 +201,8 @@ bindsym $mod+r mode "resize"
     # copyq dmenu
     set $copyq_dmenu exec $HOME/.config/copyq/script/copyq_all_wofi.sh
     bindsym $mod+c exec $copyq_dmenu
+
+    # file manager
+    set $filemanager exec thunar
+    bindsym $mod+n exec $filemanager
+

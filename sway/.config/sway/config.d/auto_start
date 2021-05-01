@@ -6,6 +6,7 @@ exec kanshi
 exec mako
 exec polkit-dumb-agent
 exec 'sleep 1;gammastep -m wayland'
+exec 'sleep 1;thunar --daemon'
 # for geoclue
 # exec 'sleep $wait_time;sway-launcher-desktop run-desktop /etc/xdg/autostart/geoclue-demo-agent.desktop'
 
@@ -15,9 +16,9 @@ exec 'sleep $wait_time;blueman-applet'
 exec 'sleep $wait_time;fcitx5 '
 # notify
 # app
-exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop'
-exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications/qv2ray.desktop'
-exec 'sleep $wait_time;sway-launcher-desktop run-desktop /usr/share/applications/com.github.hluk.copyq.desktop'
+exec 'sleep $wait_time;exec copyq --start-server'
+exec 'sleep $wait_time;exec keepassxc'
+exec 'sleep $wait_time;exec qv2ray'
 
 #exec 'sleep $wait_time;nm-applet --indicator&'
-exec 'sleep $wait_time;kdeconnect-indicator&'
+#exec 'sleep $wait_time;kdeconnect-indicator&'

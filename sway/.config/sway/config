@@ -5,6 +5,18 @@
 # Read `man 5 sway` for a complete reference.
 
 
+# https //github.com/swaywm/sway/issues/5732 
+# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# exec systemctl --user import-environment
+set $VARIABLES 'DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS'
+exec systemctl --user import-environment $VARIABLES
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd $VARIABLES
+
+exec systemctl --user start sway-session.target
+exec systemd-notify --ready
+
+
 exec_always pkill kanshi; exec kanshi
 
 # Your preferred terminal emulator
@@ -38,7 +50,7 @@ output * bg $(find $wallpapers_path -type f | shuf -n 1) fill
 #output eDP1 pos 1920 0 res 1600x900
 set $laptop eDP-1
 set $script_dir $HOME/.config/sway/script
-exec_always '$script/clamshell_mode_fix.sh'
+exec_always '$script_dir/clamshell_mode_fix.sh'
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 ### Idle configuration
@@ -93,7 +105,7 @@ exec swayidle -w \
 #    }
 #}
 bar {
-    swaybar_command waybar
+    swaybar_command "XDG_CURRENT_DESKTOP=Unity waybar"
 }
 
 #
@@ -113,16 +125,6 @@ input type:keyboard {
 focus_follows_mouse yes
 #focus_on_window_activation smart
 
-# https //github.com/swaywm/sway/issues/5732 
-# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-# exec systemctl --user import-environment
-set $VARIABLES 'DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP'
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd $VARIABLES
-exec systemctl --user import-environment $VARIABLES
-
-exec systemctl --user start sway-session.target
-exec systemd-notify --ready
 #
 # import user config
 #
