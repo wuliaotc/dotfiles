@@ -105,7 +105,7 @@ exec swayidle -w \
 #    }
 #}
 bar {
-    swaybar_command "XDG_CURRENT_DESKTOP=Unity waybar"
+    swaybar_command waybar
 }
 
 #

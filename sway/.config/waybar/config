@@ -5,6 +5,7 @@
 		[
 			"sway/workspaces","custom/separator",
 			"sway/mode","idle_inhibitor","custom/separator",
+			"backlight","custom/separator",
 			"custom/media"
 		],
 	"modules-center": 
@@ -20,7 +21,7 @@
 			"clock","custom/separator",
 			"custom/wallpaper","custom/separator",
 		],
-	// Modules configuration
+	// modules configuration
 	"sway/workspaces": {
 		"disable-scroll": true,
 		"all-outputs": true,
@@ -42,12 +43,12 @@
 	},
 	"custom/wallpaper": {
 		"format": "",
-		"on-click": "setrandom	/home/andy/Pictures/wallpaper/",
+		"on-click": "setrandom	/home/andy/pictures/wallpaper/",
 	},
 	"custom/colorchooser":{
 		"format":"",
 	   // "on-click": "grim -g \"$(slurp -p)\" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy",
-		"on-click": "$HOME/.config/waybar/colorChooser.sh"
+		"on-click": "$home/.config/waybar/colorchooser.sh"
 	},
 	"custom/lyric": {
 		"format": "{icon}{}",
@@ -61,7 +62,7 @@
 		"format": "{}",
 		"tooltip": true,
 		"interval": 3600,
-		"exec": "$HOME/.config/waybar/waybar-wttr.py",
+		"exec": "$home/.config/waybar/waybar-wttr.py",
 		"return-type": "json"
 	},
 	"sway/mode": {
@@ -70,22 +71,35 @@
 	"wlr/taskbar": {
 		"format": "{icon}",
 		"icon-size": 14,
-		"icon-theme": "Papirus-Dark",
+		"icon-theme": "papirus-dark",
 		"tooltip-format": "{title}",
 		"on-click": "activate",
 		"on-click-middle": "close"
 	},
 	"custom/media": {
-		"format": "{icon}{}",
-		"return-type": "json",
-		"format-icons": {
-			"Playing": "",
-			"Paused": "",
-		},
+		//"format": "{icon}{}",
+		//"return-type": "json",
+		//"format-icons": {
+		//	"Playing": "",
+		//	"Paused": "",
+		//},
 		"max-length":20,
-		"tooltip":"{}",
-		"exec": "playerctl metadata --format '{\"text\": \"{{title}}\", \"tooltip\": \"{{playerName}} : {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-		"on-click": "playerctl play-pause",
+		//"tooltip":"{}",
+		//"exec": "playerctl metadata --format '{\"text\": \"{{title}}\", \"tooltip\": \"{{playerName}} : {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+		//"on-click": "playerctl play-pause",
+		
+		"return-type": "json",
+		"exec": "waybar-mpris --position --autofocus --order SYMBOL:TITLE:ARTIST",
+		"on-click": "waybar-mpris --send toggle",
+		// This option will switch between players on right click.
+		"on-click-right": "waybar-mpris --send player-next",
+		// The options below will switch the selected player on scroll
+		"on-scroll-up": "waybar-mpris --send player-next",
+		"on-scroll-down": "waybar-mpris --send player-prev",
+		// The options below will go to next/previous track on scroll
+			// "on-scroll-up": "waybar-mpris --send next",
+			// "on-scroll-down": "waybar-mpris --send prev",
+		"escape": true,
 	},
 
 	"idle_inhibitor": {
@@ -97,7 +111,7 @@
 	},
 	"tray": {
 		"spacing": 5,
-		"icon-size": 14,
+		"icon-size": 18,
 		"tooltip": false
 	},
 	"clock": {
@@ -122,7 +136,10 @@
 	"backlight": {
 		// "device": "acpi_video1",
 		"format": "{percent}% {icon}",
-		"format-icons": ["", ""]
+		"format-icons": ["", ""],
+		"on-scroll-up":"brightnessctl set 1%-",
+		"on-scroll-down":"brightnessctl set 1%+",
+	
 	},
 	"battery": {
 		"states": {

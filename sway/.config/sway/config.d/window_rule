@@ -10,27 +10,30 @@ for_window [window_role="Preferences"] floating enable
 for_window [window_role ="dialog"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-for_window [app_id="nvim-qt"] floating enable
 # Tag xwayland windows as such
 for_window [shell="xwayland"] title_format "<span>[X] %title</span>"
 
+# fixed syncthin-tray
+for_window [title="^Syncthing Tray( \(.*\))?$"] floating enable, border none, resize set 450 400, move position 916 0
 
 
 # Auto float apps
-for_window [app_id="io.crow_translate.CrowTranslate"] floating enable
-for_window [app_id="qv2ray"]                          floating enable
-for_window [app_id="org.keepassxc.KeePassXC"]         floating enable
-for_window [app_id="pcmanfm-qt"]                      floating enable
 for_window [class="Anki"]                             floating enable
 for_window [title="Anki$"]                            floating enable
-for_window [app_id="anki"]                            floating enable
 for_window [class="Blueman-manager"]                  floating enable
 for_window [class="GoldenDict"]                       floating enable
 for_window [class="Nm-connection-editor"]             floating enable
-for_window [app_id="nm-openconnect-auth-dialog"]      floating enable
-for_window [app_id="nm-connection-editor$"]           floating enable
 for_window [class="SimpleScreenRecorder"]             floating enable
 for_window [class="(?i)Lxappearance$"]                floating enable
+for_window [title="^Open File$"]                      floating enable
+for_window [window_role="GtkFileChooserDialog"]       resize set 800 600
+for_window [window_role="GtkFiileChooserDialog"]      move position center
+
+for_window [app_id="nm-openconnect-auth-dialog"]      floating enable
+for_window [app_id="nm-connection-editor$"]           floating enable
+for_window [app_id="anki"]                            floating enable
+for_window [app_id="nvim-qt"] floating enable
+for_window [app_id="org.kde.ark"] floating enable
 for_window [app_id="(?i)mpv"]                         floating enable
 for_window [app_id="pavucontrol"]                     floating enable
 for_window [app_id="(?i)thunar"]                      floating enable
@@ -41,9 +44,13 @@ for_window [app_id="firetools"]                       floating enable
 for_window [app_id="firewall-config"]                 floating enable
 for_window [app_id="(pavucontrol|psensor)"]           floating enable
 for_window [app_id="soffice"]                         floating enable
-for_window [title="^Open File$"]                      floating enable
-for_window [window_role="GtkFileChooserDialog"]       resize set 800 600
-for_window [window_role="GtkFiileChooserDialog"]      move position center
+for_window [app_id="io.crow_translate.CrowTranslate"] floating enable
+for_window [app_id="qv2ray"]                          floating enable
+for_window [app_id="org.keepassxc.KeePassXC"]         floating enable
+for_window [app_id="pcmanfm-qt"]                      floating enable
+for_window [app_id="qv2ray"]                          floating enable
+for_window [app_id="org.keepassxc.KeePassXC"]         floating enable
+for_window [app_id="pcmanfm-qt"]                      floating enable
 # auto fullscreen app
 for_window [app_id="telegramdesktop" title="^Media viewer$"]    fullscreen
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040

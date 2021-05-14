@@ -48,7 +48,7 @@ window#waybar {
     color: @lightblue;
     background: @bgkdark;
     border-radius: 10px;
-    border: 2px solid @darkblue;
+    border: 1px solid @darkblue;
 }
 
 /*window#waybar.top {

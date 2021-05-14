@@ -170,14 +170,18 @@ bindsym $mod+r mode "resize"
 # keybind for Screen_capture
 #
 #
+    set $cur_display exec swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name'
+    set $cur_window exec swaymsg -t get_tree | jq -r '.. | ((.nodes? + .floating_nodes?) // empty) | .[] | select(.focused and .pid) | .rect | "\(.x),\(.y) \(.width)x\(.height)"'
+    set $select exec slurp
     # print display
-    bindsym Print exec grim - |wl-copy
+    bindsym Print exec $cur_display|grim -g - - |wl-copy
     # print select pos
-    bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | wl-copy
-    bindsym Ctrl+Shift+Print exec grim -g "$(slurp)" - | swappy -f -
+    bindsym Ctrl+Print exec $select |grim -g - - | wl-copy
+    bindsym Ctrl+Shift+Print exec $select | grim -g - - | swappy -f -
+    bindsym Ctrl+$mod+Print exec echo "$(slurp;sleep 2)" | grim -g - - |swappy -f -
     # print current window
-    bindsym $mod+Print exec swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' | grim -g - - | wl-copy
-
+    bindsym $mod+Print exec $cur_window | grim -g - - | wl-copy
+    bindsym Shift+$mod+Print exec $cur_window | grim -g - - | wl-copy
 
 
 #

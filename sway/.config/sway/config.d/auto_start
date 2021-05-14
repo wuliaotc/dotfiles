@@ -1,5 +1,5 @@
 ### autostart
-set $wait_time 10
+set $wait_time 20
 
 exec /usr/lib/geoclue-2.0/demos/agent
 exec kanshi
@@ -7,8 +7,7 @@ exec mako
 exec polkit-dumb-agent
 exec 'sleep 1;gammastep -m wayland'
 exec 'sleep 1;thunar --daemon'
-# for geoclue
-# exec 'sleep $wait_time;sway-launcher-desktop run-desktop /etc/xdg/autostart/geoclue-demo-agent.desktop'
+exec 'sleep 1;exec copyq --start-server'
 
 # bluetooth
 exec 'sleep $wait_time;blueman-applet'
@@ -16,9 +15,7 @@ exec 'sleep $wait_time;blueman-applet'
 exec 'sleep $wait_time;fcitx5 '
 # notify
 # app
-exec 'sleep $wait_time;exec copyq --start-server'
 exec 'sleep $wait_time;exec keepassxc'
 exec 'sleep $wait_time;exec qv2ray'
+exec 'sleep $wait_time;exec syncthingtray-qt6'
 
-#exec 'sleep $wait_time;nm-applet --indicator&'
-#exec 'sleep $wait_time;kdeconnect-indicator&'
