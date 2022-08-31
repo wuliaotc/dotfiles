@@ -27,6 +27,7 @@ if !exists('g:bundles')
 	let g:bundles += ['coc']
 	let g:bundles += ['vim-go']
 	let g:bundles += ['nerdtree']
+"""	let g:bundles += ['sonokai']
 endif
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
@@ -44,56 +45,58 @@ endfunc
 "----------------------------------------------------------------------
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
-" coc
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	" coc
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+	" airline
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 
-"auto complete {} () ... 
-Plug 'Raimondi/delimitMate'
+	"auto complete {} () ... 
+	Plug 'Raimondi/delimitMate'
 
-"ale
-"Plug 'w0rp/ale'
+	"ale
+	"Plug 'w0rp/ale'
 
-"写C / C ++时函数忘了可以用上面的YCM补全，若是参数忘记了则可以使用echodoc插件。当用YCM的选项卡补全了一个函数名后，只要输入左括号，下面命令行就会显示出该函数的参数信息，并通过光标移动高亮出当前参数位置。
-" Plug 'Shougo/echodoc.vim'
+	"写C / C ++时函数忘了可以用上面的YCM补全，若是参数忘记了则可以使用echodoc插件。当用YCM的选项卡补全了一个函数名后，只要输入左括号，下面命令行就会显示出该函数的参数信息，并通过光标移动高亮出当前参数位置。
+	" Plug 'Shougo/echodoc.vim'
+	
+	" Plug 'neomake/neomake'
 
-" Plug 'neomake/neomake'
-
-" C++ 语法高亮增强，支持 11/14/17 标准
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+	" C++ 语法高亮增强，支持 11/14/17 标准
+	Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 
-" 额外语法文件
-Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
+	" 额外语法文件
+	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
-" python 语法文件增强
-" Plug 'vim-python/python-syntax', { 'for': ['python'] }
+	" python 语法文件增强
+	" Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
-" go fmt支持
-Plug 'fatih/vim-go'
+	" go fmt支持
+	Plug 'fatih/vim-go'
 
-Plug 'rhysd/vim-clang-format'
+	Plug 'rhysd/vim-clang-format'
 
-Plug 'mhinz/vim-signify'
+	Plug 'mhinz/vim-signify'
 
-" gutentags 自动索引
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
+	" gutentags 自动索引
+	Plug 'ludovicchabant/vim-gutentags'
+	Plug 'skywind3000/gutentags_plus'
 
-" LeaderF
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" nerdtree
-Plug 'preservim/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" tabnine
-" Plug 'zxqfl/tabnine-vim'
+	" LeaderF
+	Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+	" nerdtree
+	Plug 'preservim/nerdtree'
+	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+	" tabnine
+	" Plug 'zxqfl/tabnine-vim'
 
-" sonokai color scheme , fork from monokai
-Plug 'sainnhe/sonokai'
-call plug#end()
+	" sonokai color scheme , fork from monokai
+	Plug 'sainnhe/sonokai'
+	Plug 'sheerun/vim-polyglot'
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+	call plug#end()
 "--------------------------------------------------------------------
 " coc配置项
 "--------------------------------------------------------------------
@@ -240,11 +243,36 @@ if index(g:bundles, 'coc') >= 0
 endif
 
 "--------------------------------------------------------------------
+" vim-go配置项
+"--------------------------------------------------------------------
+if index(g:bundles, 'vim-go') >= 0
+	let g:go_gopls_options = ['-remote=auto']
+endif
+
+
+"--------------------------------------------------------------------
 " vim-cpp-enhanced-highlight配置项
 "--------------------------------------------------------------------
 if index(g:bundles, 'cppenhanced') >= 0
 	let c_no_curly_error = 1
 endif
+
+"--------------------------------------------------------------------
+" sonokai 配置项
+"--------------------------------------------------------------------
+if index(g:bundles, 'sonokai') >= 0
+	" Important!!
+	if has('termguicolors')
+		set termguicolors
+	endif
+	" The configuration options should be placed before `colorscheme sonokai`.
+	let g:sonokai_style = 'andromeda'
+	let g:sonokai_enable_italic = 1
+	let g:sonokai_disable_italic_comment = 1
+	
+	colorscheme sonokai
+endif
+
 
 "--------------------------------------------------------------------
 " ariline配置项
@@ -471,7 +499,7 @@ endif
 if index(g:bundles, 'clang-format') >= 0
 	let g:clang_format#command = 'clang-format'
 	"nmap <F4> :ClangFormat<cr>
-	autocmd FileType c ClangFormatAutoEnable
+	"autocmd FileType c,c++ ClangFormatAutoEnable
 	let g:clang_format#detect_style_file = 0
 
 	let g:clang_format#style_options = {

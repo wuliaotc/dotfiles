@@ -74,7 +74,8 @@ window#waybar {
 #taskbar,
 #tray,
 #custom-wallpaper,
-#custom-colorchooser{
+#custom-colorchooser,
+#custom-notification{
     padding: 1px 10px 0px 10px;
     margin: 5px 0px 5px 0px;
     border-radius: 6px;

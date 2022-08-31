@@ -8,8 +8,9 @@
 
 font pango:Noto Sans CJK SC Bold 8
 # borders
-default_border none
-default_floating_border normal
+default_border pixel 1 
+default_floating_border normal 
+
 
 # Base colors
 # class					border		backgr		text		indicator		child_border
@@ -25,7 +26,7 @@ client.focused_inactive #88c0d0 #2e3440 #d8dee9 #4c566a   #4c566a
 client.unfocused        #88c0d0 #2e3440 #d8dee9 #4c566a   #4c566a
 client.urgent           #ebcb8b #ebcb8b #2e3440 #8fbcbb   #ebcb8b
 # opne smart_gaps
-smart_gaps open
+#smart_gaps open
 
 
 # gtk workaround

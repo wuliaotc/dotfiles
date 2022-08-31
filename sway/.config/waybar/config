@@ -5,7 +5,7 @@
 		[
 			"sway/workspaces","custom/separator",
 			"sway/mode","idle_inhibitor","custom/separator",
-			"backlight","custom/separator",
+			//"backlight","custom/separator",
 			"custom/media"
 		],
 	"modules-center": 
@@ -14,17 +14,19 @@
 		],
 	"modules-right": 
 		[
+			"cpu","custom/separator",
+			"memory","custom/separator",
 			"pulseaudio","custom/separator",
 			"tray","custom/separator",
 			"network","custom/separator",
 			"battery", "custom/separator",
 			"clock","custom/separator",
-			"custom/wallpaper","custom/separator",
+			"custom/notification","custom/separator",
 		],
 	// modules configuration
 	"sway/workspaces": {
 		"disable-scroll": true,
-		"all-outputs": true,
+		//"all-outputs": true,
 		"format": "{name}: {icon}",
 		"format-icons": {
 			 "1": "",
@@ -37,18 +39,35 @@
 			 "default": ""
 		 }
 	 },
+	"custom/notification": {
+		"tooltip": false,
+		"format": "{icon}",
+		"format-icons": {
+			"notification": "<span foreground='red'><sup></sup></span>",
+			"none": "",
+			"dnd-notification": "<span foreground='red'><sup></sup></span>",
+			"dnd-none": ""
+		},
+		"return-type": "json",
+		"exec-if": "which swaync-client",
+		"exec": "swaync-client -swb",
+		"on-click": "swaync-client -t -sw",
+		"on-click-right": "swaync-client -d -sw",
+		"escape": true
+	},
+
 	"custom/separator": {
 		"format": "",
-		"tooltip": false
+		"tooltip": false,
 	},
 	"custom/wallpaper": {
 		"format": "",
-		"on-click": "setrandom	/home/andy/pictures/wallpaper/",
+		"on-click-left": "setrandom /home/andy/Pictures/wallpaper/",
 	},
 	"custom/colorchooser":{
 		"format":"",
 	   // "on-click": "grim -g \"$(slurp -p)\" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy",
-		"on-click": "$home/.config/waybar/colorchooser.sh"
+		"on-click-left": "$home/.config/waybar/colorchooser.sh",
 	},
 	"custom/lyric": {
 		"format": "{icon}{}",
@@ -63,10 +82,10 @@
 		"tooltip": true,
 		"interval": 3600,
 		"exec": "$home/.config/waybar/waybar-wttr.py",
-		"return-type": "json"
+		"return-type": "json",
 	},
 	"sway/mode": {
-		"format": "<span style=\"italic\">{}</span>"
+		"format": "<span style=\"italic\">{}</span>",
 	},
 	"wlr/taskbar": {
 		"format": "{icon}",
@@ -74,29 +93,17 @@
 		"icon-theme": "papirus-dark",
 		"tooltip-format": "{title}",
 		"on-click": "activate",
-		"on-click-middle": "close"
+		"on-click-middle": "close",
 	},
 	"custom/media": {
-		//"format": "{icon}{}",
-		//"return-type": "json",
-		//"format-icons": {
-		//	"Playing": "",
-		//	"Paused": "",
-		//},
 		"max-length":20,
-		//"tooltip":"{}",
-		//"exec": "playerctl metadata --format '{\"text\": \"{{title}}\", \"tooltip\": \"{{playerName}} : {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-		//"on-click": "playerctl play-pause",
 		
 		"return-type": "json",
 		"exec": "waybar-mpris --position --autofocus --order SYMBOL:TITLE:ARTIST",
 		"on-click": "waybar-mpris --send toggle",
-		// This option will switch between players on right click.
 		"on-click-right": "waybar-mpris --send player-next",
-		// The options below will switch the selected player on scroll
 		"on-scroll-up": "waybar-mpris --send player-next",
 		"on-scroll-down": "waybar-mpris --send player-prev",
-		// The options below will go to next/previous track on scroll
 			// "on-scroll-up": "waybar-mpris --send next",
 			// "on-scroll-down": "waybar-mpris --send prev",
 		"escape": true,
@@ -107,7 +114,7 @@
 		"format-icons": {
 			"deactivated": "",
 			"activated": ""
-		}
+		},
 	},
 	"tray": {
 		"spacing": 5,
@@ -125,7 +132,7 @@
 		"tooltip": false
 	},
 	"memory": {
-		"format": "{}% "
+		"format": "{}% ",
 	},
 	"temperature": {
 		"critical-threshold": 80,
@@ -137,8 +144,8 @@
 		// "device": "acpi_video1",
 		"format": "{percent}% {icon}",
 		"format-icons": ["", ""],
-		"on-scroll-up":"brightnessctl set 1%-",
-		"on-scroll-down":"brightnessctl set 1%+",
+		"on-scroll-up":"brightnessctl set 1%+",
+		"on-scroll-down":"brightnessctl set 1%-",
 	
 	},
 	"battery": {

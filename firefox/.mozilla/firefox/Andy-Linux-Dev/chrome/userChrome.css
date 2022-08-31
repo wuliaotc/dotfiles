@@ -1,24 +1,20 @@
 /*AGENT_SHEET*/
 /*#TabsToolbar {
     visibility: collapse !important;
-}*/
+}
 
 /* remove maximum/minimum  width restriction of sidebar */
 /*#sidebar {
     max-width: none !important;
     min-width: 0px !important;
 }*/
-/****** flyingFox *************/
-@import "config.css";
-@import "variables.css";
-@import "icons/icons.css";
-@import "urlbar/urlbar.css";
-@import "navbar/navbar.css";
-@import "popup/popup.css";
-@import "interface/interface.css";
-@import "userChrome-tabline.css";
-
-
+#main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+  opacity: 0;
+  pointer-events: none;
+}
+#main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+    visibility: collapse !important;
+}
 /****** simpleMenuWizard ******/
 
 /********************************************************

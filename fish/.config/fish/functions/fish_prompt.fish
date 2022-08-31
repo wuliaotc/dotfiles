@@ -1,52 +1,39 @@
-# Defined interactively
-function fish_prompt --description 'Write out the prompt'
-    set -l laststatus $status
+function fish_prompt
+end
 
-    set -l git_info
-    if set -l git_branch (command git symbolic-ref HEAD 2>/dev/null | string replace refs/heads/ '')
-        set git_branch (set_color -o blue)"$git_branch"
-        set -l git_status
-        if not command git diff-index --quiet HEAD --
-            if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
-                echo $count | read -l ahead behind
-                if test "$ahead" -gt 0
-                    set git_status "$git_status"(set_color red)⬆
-                end
-                if test "$behind" -gt 0
-                    set git_status "$git_status"(set_color red)⬇
-                end
-            end
-            for i in (git status --porcelain | string sub -l 2 | sort | uniq)
-                switch $i
-                    case "."
-                        set git_status "$git_status"(set_color green)✚
-                    case " D"
-                        set git_status "$git_status"(set_color red)✖
-                    case "*M*"
-                        set git_status "$git_status"(set_color green)✱
-                    case "*R*"
-                        set git_status "$git_status"(set_color purple)➜
-                    case "*U*"
-                        set git_status "$git_status"(set_color brown)═
-                    case "??"
-                        set git_status "$git_status"(set_color red)≠
-                end
-            end
-        else
-            set git_status (set_color green):
-        end
-        set git_info "(git$git_status$git_branch"(set_color white)")"
+status is-interactive || exit
+
+_tide_remove_unusable_items
+
+set -g _tide_left_prompt_display_var _tide_left_prompt_display_$fish_pid
+set -gx _tide_right_prompt_display_var _tide_right_prompt_display_$fish_pid
+
+function _tide_refresh_prompt --on-variable $_tide_left_prompt_display_var --on-variable $_tide_right_prompt_display_var
+    set -g _tide_self_repainting # prevents us from creating a second background job
+    commandline --function repaint
+end
+
+function fish_prompt
+    set -lx _tide_last_status $status
+    set -lx _tide_last_pipestatus $pipestatus
+
+    if not set -e _tide_self_repainting
+        _tide_jobs_number=(jobs --pid | count) fish --command "
+            set -g CMD_DURATION $CMD_DURATION
+            set -g COLUMNS $COLUMNS
+            set -g fish_bind_mode $fish_bind_mode
+            set -g fish_term24bit $fish_term24bit
+            set -U $_tide_left_prompt_display_var (_tide_prompt)" &
+
+        command kill $_tide_last_pid 2>/dev/null
+        set -g _tide_last_pid (jobs --last --pid) # Replace with $last_pid in Fish 3.3.0
+        builtin disown $_tide_last_pid 2>/dev/null
     end
 
-    # Disable PWD shortening by default.
-    set -q fish_prompt_pwd_dir_length
-    or set -lx fish_prompt_pwd_dir_length 0
+    string unescape $$_tide_left_prompt_display_var
+end
 
-    set_color -b black
-    printf '%s%s%s%s%s%s%s%s%s%s%s%s%s' (set_color -o white) '❰' (set_color green) $USER (set_color white) '❙' (set_color yellow) (prompt_pwd) (set_color white) $git_info (set_color white) '❱' (set_color white)
-    if test $laststatus -eq 0
-        printf "%s✔%s≻%s " (set_color -o green) (set_color white) (set_color normal)
-    else
-        printf "%s✘%s≻%s " (set_color -o red) (set_color white) (set_color normal)
-    end
+# Double underscores to avoid erasing this function on uninstall
+function __tide_on_fish_exit --on-event fish_exit
+    set -e $_tide_left_prompt_display_var $_tide_right_prompt_display_var
 end

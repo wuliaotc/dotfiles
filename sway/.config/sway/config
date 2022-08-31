@@ -8,14 +8,6 @@
 # https //github.com/swaywm/sway/issues/5732 
 # exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 # exec systemctl --user import-environment
-set $VARIABLES 'DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS'
-exec systemctl --user import-environment $VARIABLES
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd $VARIABLES
-
-exec systemctl --user start sway-session.target
-exec systemd-notify --ready
-
 
 exec_always pkill kanshi; exec kanshi
 
@@ -32,8 +24,8 @@ for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 p
 
 set $MENU_LOCK_DIR /tmp/sway.launcher.desktop.lock
 set $menu_lock mkdir "$MENU_LOCK_DIR" && trap 'rmdir "$MENU_LOCK_DIR"' EXIT INT 
-set $menu  $menu_lock && $term --class=launcher -e /usr/bin/sway-launcher-desktop
-#set $menu exec wofi --conf $HOME/.config/wofi/config-drun --style $HOME/.config/wofi/style.css
+#set $menu  $menu_lock && $term --class=launcher -e /usr/bin/sway-launcher-desktop
+set $menu exec wofi --conf $HOME/.config/wofi/config-drun --style $HOME/.config/wofi/style.css
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -57,16 +49,23 @@ bindswitch --reload --locked lid:off output $laptop enable
 #
 # Example configuration:
 
-exec swayidle -w \
-		 timeout 300 'swaylock -f' \
-		 timeout 600 'swaymsg "output * dpms off"' \
-			resume 'swaymsg "output * dpms on";'\
-		 timeout 1200 'sleep 5;systemctl suspend'\
-		 before-sleep 'swaylock -f'\
-		 after-resume 'sleep 5 ;killall -SIGUSR2 waybar;'\
-		 lock 'swaylock -f'
+#exec swayidle -w \
+#		 timeout 300 'swaylock -f' \
+#		 timeout 600 'swaymsg "output * dpms off"' \
+#			resume 'swaymsg "output * dpms on";'\
+#		 timeout 12000 'sleep 5;systemctl suspend'\
+#        before-sleep 'swaylock -f'\
+#		 after-resume 'sleep 5;killall -SIGUSR2 waybar;'\
+#		 lock 'swaylock -f'
 #exec swayidle timeout 2 'swaylock -c 000000' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -c 000000' 
-
+exec swayidle -w \
+	timeout 600 'swaylock' \
+	timeout 1000 'swaymsg "output * dpms off"' \
+	resume 'swaymsg "output * dpms on"' \
+	timeout 12000 'sleep 5;systemctl suspend' \
+    before-sleep 'swaylock -f' \
+	after-resume 'sleep 5;killall -SIGUSR2 waybar;' \
+	lock 'swaylock -f'
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -104,26 +103,32 @@ exec swayidle -w \
 #        inactive_workspace #32323200 #32323200 #5c5c5c
 #    }
 #}
-bar {
-    swaybar_command waybar
-}
+#bar {
+#   swaybar_command waybar
+#}
 
 #
 # key enable
 # 
 #input * xkb_capslock enable
 
-input * xkb_numlock enable
-input type:keyboard {
-    xkb_layout us
-	xkb_options caps:escape
-}
 
 #
 # focus setting
 #
 focus_follows_mouse yes
 #focus_on_window_activation smart
+
+#set $VARIABLES 'DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS'
+#exec systemctl --user import-environment $VARIABLES
+#exec hash dbus-update-activation-environment 2>/dev/null && \
+#     dbus-update-activation-environment --systemd $VARIABLES
+exec systemctl --user import-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS
+exec systemctl --user start sway-session.target
+exec systemd-notify --ready
+
 
 #
 # import user config

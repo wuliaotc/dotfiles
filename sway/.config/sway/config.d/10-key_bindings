@@ -45,6 +45,7 @@ set $mod Mod4
 # Workspaces:
 #
     # Switch to workspace
+    bindsym $mod+Tab workspace back_and_forth
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3
@@ -89,7 +90,7 @@ set $mod Mod4
     bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    #bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
@@ -170,19 +171,42 @@ bindsym $mod+r mode "resize"
 # keybind for Screen_capture
 #
 #
-    set $cur_display exec swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name'
-    set $cur_window exec swaymsg -t get_tree | jq -r '.. | ((.nodes? + .floating_nodes?) // empty) | .[] | select(.focused and .pid) | .rect | "\(.x),\(.y) \(.width)x\(.height)"'
-    set $select exec slurp
+    # set $cur_display exec swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name'
+    # set $cur_window exec swaymsg -t get_tree | jq -r '.. | ((.nodes? + .floating_nodes?) // empty) | .[] | select(.focused and .pid) | .rect | "\(.x),\(.y) \(.width)x\(.height)"'
+    # set $select exec slurp
     # print display
-    bindsym Print exec $cur_display|grim -g - - |wl-copy
+    #bindsym Print exec grim -o "$cur_display" |wl-copy
     # print select pos
-    bindsym Ctrl+Print exec $select |grim -g - - | wl-copy
-    bindsym Ctrl+Shift+Print exec $select | grim -g - - | swappy -f -
-    bindsym Ctrl+$mod+Print exec echo "$(slurp;sleep 2)" | grim -g - - |swappy -f -
+    #bindsym Ctrl+Print exec $select |grim -g - - | wl-copy
+    #bindsym Ctrl+Shift+Print exec $select | grim -g - - | swappy -f -
+    #bindsym Ctrl+$mod+Print exec echo "$(slurp;sleep 2)" | grim -g - - |swappy -f -
     # print current window
-    bindsym $mod+Print exec $cur_window | grim -g - - | wl-copy
-    bindsym Shift+$mod+Print exec $cur_window | grim -g - - | wl-copy
+    #bindsym $mod+Print exec $cur_window | grim -g - - | wl-copy
+    #bindsym Shift+$mod+Print exec $cur_window | grim -g - - | wl-copy
 
+    # Screenshots:
+    # Super+P: Current window
+    # Super+Shift+p: Select area
+    # Super+Alt+p Current output
+    # Super+Ctrl+p Select a window
+    # select area
+    bindsym Ctrl+Print                  exec grimshot copy area
+    bindsym Ctrl+Shift+Print            exec grimshot save area - |swappy -f -
+    # current output
+    bindsym Print                       exec grimshot copy output
+    bindsym Shift+Print                 exec grimshot save output - |swappy -f -
+    # select window
+    bindsym Ctrl+$mod+Print             exec grimshot copy window
+    bindsym Ctrl+$mod+Shift+Print       exec grimshot save window - |swappy -f -
+    # current window
+    bindsym $mod+Print                  exec grimshot copy active
+    bindsym $mod+Shift+Print            exec grimshot save active - |swappy -f -
+
+#
+# keybind for swayr
+#
+
+    bindsym $mod+Space exec env swayr switch-window >> /tmp/swayr.log 2>&1
 
 #
 # keybind for custom app
@@ -203,10 +227,11 @@ bindsym $mod+r mode "resize"
     bindsym $mod+h exec killall -SIGUSR1 waybar
     
     # copyq dmenu
-    set $copyq_dmenu exec $HOME/.config/copyq/script/copyq_all_wofi.sh
-    bindsym $mod+c exec $copyq_dmenu
-
+    #set $copyq_dmenu exec $HOME/.config/copyq/script/copyq_all_wofi.sh
+    #bindsym $mod+c exec $copyq_dmenu
+    #bindsym $mod+c exec cliphist list | wofi --dmenu | cliphist decode | wl-copy 
+    bindsym $mod+c exec clipman --primary pick --tool wofi -T'-i'
     # file manager
-    set $filemanager exec thunar
+    set $filemanager exec pcmanfm-qt
     bindsym $mod+n exec $filemanager
 

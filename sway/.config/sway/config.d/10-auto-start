@@ -1,0 +1,25 @@
+### autostart
+#exec wl-paste --watch cliphist store
+#exec wl-paste --primary --watch cliphist store
+exec wl-paste -t text --watch clipman store 
+exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman.json"
+
+set $wait_time 10
+exec /usr/lib/geoclue-2.0/demos/agent
+#exec kanshi
+#exec mako
+exec polkit-dumb-agent
+#exec 'sleep $wait_time;gammastep -m wayland'
+#exec 'sleep $wait_time;thunar --daemon'
+#exec 'sleep $wait_time;exec copyq --start-server'
+
+# bluetooth
+exec 'sleep $wait_time;blueman-applet'
+# ime
+exec 'sleep $wait_time;fcitx5 '
+# notify
+# app
+exec 'sleep $wait_time;exec keepassxc'
+exec 'sleep $wait_time;exec qv2ray'
+exec 'sleep $wait_time;exec syncthingtray-qt6'
+

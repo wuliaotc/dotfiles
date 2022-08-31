@@ -1,0 +1,33 @@
+✕ cha 0
+✓ gou 0
+° du 0
+♂ nan 0
+♀ nv 0
+♥ xin 0
+★ xing 0
+✩ xing 0
+♪ yin fu 0
+♫ yin fu 0
+囗 kuang 0
+
+
+↑ shang 0
+↓ xia 0
+→ you 0
+↗ you shang 0
+↘ you xia 0
+← zuo 0
+↖ zuo shang 0
+↙ zuo xia 0
+
+① yi 0
+② er 0
+③ san 0
+④ si 0
+⑤ wu 0
+⑥ liu 0
+⑦ qi 0
+⑧ ba 0
+⑨ jiu 0
+⑩ shi 0
+
