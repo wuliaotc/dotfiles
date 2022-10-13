@@ -1,6 +1,7 @@
 ### autostart
 #exec wl-paste --watch cliphist store
 #exec wl-paste --primary --watch cliphist store
+exec clipman restore
 exec wl-paste -t text --watch clipman store 
 exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman.json"
 
@@ -14,7 +15,7 @@ exec polkit-dumb-agent
 #exec 'sleep $wait_time;exec copyq --start-server'
 
 # bluetooth
-exec 'sleep $wait_time;blueman-applet'
+exec_always 'sleep $wait_time;blueman-applet'
 # ime
 exec 'sleep $wait_time;fcitx5 '
 # notify

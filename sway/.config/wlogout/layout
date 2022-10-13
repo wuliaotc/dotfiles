@@ -1,12 +1,12 @@
 {
     "label" : "logout",
-    "action" : "loginctl terminate-user $USER",
+    "action" : "zenity --warning --title='confirm' --text='confirm logout'&&loginctl terminate-user $USER",
     "text" : "Logout",
     "keybind" : "e"
 }
 {
     "label" : "shutdown",
-    "action" : "systemctl poweroff",
+    "action" : "zenity --warning --title='confirm' --text='confirm poweroff!!!'&&systemctl poweroff",
     "text" : "Shutdown",
     "keybind" : "s"
 }
@@ -18,7 +18,7 @@
 }
 {
     "label" : "reboot",
-    "action" : "systemctl reboot",
+    "action" : "zenity --warning --title='confirm' --text='confirm reboot'&&systemctl reboot",
     "text" : "Reboot",
     "keybind" : "r"
 }

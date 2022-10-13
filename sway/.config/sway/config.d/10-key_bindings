@@ -11,8 +11,11 @@ set $mod Mod4
     # Kill focused window
     bindsym $mod+q kill
 
+    set $menu exec wofi --conf $HOME/.config/wofi/config-drun --style $HOME/.config/wofi/style.css
     # Start your launcher
     bindsym $mod+d exec $menu
+    # switch pa output
+    bindsym $mod+m exec pactl list sinks short |awk '{if ($7=="RUNNING") print "current: "$2; else print $2;}' |wofi --dmenu |xargs | sed 's/^current: //' |xargs pactl set-default-sink
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -230,7 +233,7 @@ bindsym $mod+r mode "resize"
     #set $copyq_dmenu exec $HOME/.config/copyq/script/copyq_all_wofi.sh
     #bindsym $mod+c exec $copyq_dmenu
     #bindsym $mod+c exec cliphist list | wofi --dmenu | cliphist decode | wl-copy 
-    bindsym $mod+c exec clipman --primary pick --tool wofi -T'-i'
+    bindsym $mod+c exec clipman pick --tool wofi -T'-i'
     # file manager
     set $filemanager exec pcmanfm-qt
     bindsym $mod+n exec $filemanager

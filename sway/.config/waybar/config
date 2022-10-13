@@ -23,6 +23,7 @@
 			"clock","custom/separator",
 			"custom/notification","custom/separator",
 		],
+	//"custom/wallpaper","custom/separator",
 	// modules configuration
 	"sway/workspaces": {
 		"disable-scroll": true,
@@ -61,8 +62,11 @@
 		"tooltip": false,
 	},
 	"custom/wallpaper": {
+		"exec": "setrandom '/home/andy/syncthing/Pictures/4K/4KB/'",
 		"format": "",
-		"on-click-left": "setrandom /home/andy/Pictures/wallpaper/",
+		"exec-on-event":false,
+		"on-click": "echo 'click'; $HOME/.config/waybar/randomWall.sh",
+		"tooltip":false,
 	},
 	"custom/colorchooser":{
 		"format":"",
@@ -180,8 +184,8 @@
 		// "scroll-step": 1, // %, can be a float
 		"format": "{volume:3}% {icon} {format_source}",
 		"format-bluetooth": "{volume:3}% {icon} {format_source}",
-		"format-bluetooth-muted": " {icon} {format_source}",
-		"format-muted": " {format_source}",
+		"format-bluetooth-muted": " {icon} {format_source}",
+		"format-muted": " {format_source}",
 		"format-source": "{volume:3}% ",
 		"format-source-muted": "",
 		"format-icons": {
