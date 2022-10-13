@@ -1,13 +1,10 @@
-import os
-import json
-import threading
-from functools import partial
-
 # 自定义配置
-config.THEME = 'auto'
+#config.THEME = 'auto'
 config.AUDIO_SELECT_POLICY = '>>>'
 
-# config.ENABLE_TRAY = True # 是否启用系统托盘
+#config.THEME = 'macos_dark'
+config.THEME = 'auto'
+config.ENABLE_TRAY = True # 是否启用系统托盘
 config.NOTIFY_ON_TRACK_CHANGED = False # 切换歌曲时显示桌面通知
 config.NOTIFY_DURATION = 5000 # 桌面通知保留时长（毫秒）
 config.MINIMIZE_TO_TRAY = True # 启用最小化到系统托盘，点击托盘图标恢复
