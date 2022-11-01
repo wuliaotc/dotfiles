@@ -33,21 +33,35 @@ return require('packer').startup(function()
     }
 
     -- language
-	use 'neovim/nvim-lspconfig'
-	use 'glepnir/lspsaga.nvim'
+    --- lua enhanced
+    use("folke/neodev.nvim")
+    --- json
+    use("b0o/schemastore.nvim")
+    -- lspconfig
+    use {'neovim/nvim-lspconfig', 'williamboman/nvim-lsp-installer'}
+    use 'glepnir/lspsaga.nvim'
     use 'L3MON4D3/LuaSnip'
-	use 'simrat39/rust-tools.nvim'
-	use 'simrat39/symbols-outline.nvim'
+    use 'simrat39/rust-tools.nvim'
+    use 'simrat39/symbols-outline.nvim'
+    --- format 
+    use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
     --- nvim-cmp
     use 'hrsh7th/nvim-cmp'
-	use 'hrsh7th/cmp-nvim-lsp'
-	use 'hrsh7th/cmp-buffer'
-	use 'hrsh7th/cmp-path'
-	use 'hrsh7th/cmp-cmdline'
-	-- telescope
+    use 'hrsh7th/cmp-nvim-lsp'  
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    --- vsnip
+    use 'hrsh7th/cmp-vsnip'    -- { name = 'vsnip' }
+    use 'hrsh7th/vim-vsnip'
+    use 'rafamadriz/friendly-snippets'
+    --- lspkind
+    use 'onsails/lspkind-nvim'
+    
+    -- telescope
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
       -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
       }
-  end)
+end)
