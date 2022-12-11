@@ -204,6 +204,10 @@ bindsym $mod+r mode "resize"
     # current window
     bindsym $mod+Print                  exec grimshot copy active
     bindsym $mod+Shift+Print            exec grimshot save active - |swappy -f -
+    
+    #ocr
+    bindsym Ctrl+c+Print exec grimshot save area -|tesseract stdin stdout -l chi_sim|tr -d ' \f'|wl-copy
+    bindsym Ctrl+e+Print exec grimshot save area -|tesseract stdin stdout -l eng|tr -d ' \f'|wl-copy
 
 #
 # keybind for swayr

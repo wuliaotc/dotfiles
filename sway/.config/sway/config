@@ -120,7 +120,7 @@ exec swayidle -w \
 # focus setting
 #
 focus_follows_mouse yes
-#focus_on_window_activation smart
+focus_on_window_activation smart
 
 #set $VARIABLES 'DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS'
 #exec systemctl --user import-environment $VARIABLES
