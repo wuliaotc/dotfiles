@@ -34,6 +34,13 @@ null_ls.setup({
       },
       prefer_local = "node_modules/.bin",
     }),
+    -- goalng
+    -- gopls
+    formatting.gofmt,
+    formatting.goimports,
+    -- cpp
+    -- clang_format
+    formatting.clang_format,
     -- rustfmt
     -- rustup component add rustfmt
     formatting.rustfmt,
@@ -71,7 +78,7 @@ null_ls.setup({
   diagnostics_format = "[#{s}] #{m}",
   on_attach = function(_)
     vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()']])
-    -- if client.resolved_capabilities.document_formatting then
+    -- if client.server_capabilities.document_formatting then
     --  vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     -- end
   end,

@@ -1,5 +1,3 @@
-source init.vim 
-
 " Or, you could use neovim's floating text feature.
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'floating'

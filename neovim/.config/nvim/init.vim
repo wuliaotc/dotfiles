@@ -9,10 +9,13 @@ lua require('plugin-config/nvim-tree')
 lua require('plugin-config/lualine')
 lua require('plugin-config/nvim-treesitter')
 lua require('plugin-config/telescope')
+lua require('plugin-config/leap')
 " lsp
 lua require('lsp/setup')
 " format
 lua require("lsp/null-ls")
+" cmp
+lua require("lsp/cmp")
 
 set background=dark
 colorscheme nord 
