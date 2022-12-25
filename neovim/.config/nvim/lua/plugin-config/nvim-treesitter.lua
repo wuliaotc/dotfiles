@@ -1,7 +1,7 @@
 require("nvim-treesitter.configs").setup({
 	-- 安装 language parser
 	-- :TSInstallInfo 命令查看支持的语言
-	ensure_installed = { "html", "css", "vim", "lua", "javascript", "typescript", "tsx", "cpp" },
+	ensure_installed = { "html", "css", "vim", "lua", "javascript", "typescript", "tsx", "cpp","c" },
 	-- 启用代码高亮功能
 	highlight = {
 		enable = true,
@@ -34,6 +34,15 @@ require("nvim-treesitter.configs").setup({
 				output_handle = require("nvim-treesitter.nt-cpp-tools.output_handlers").get_add_to_cpp(),
 			},
 		},
+	},
+	-- 启用彩色括号匹配
+	rainbow = {
+		enable = true,
+		-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+		max_file_lines = nil, -- Do not enable for files with more than n lines, int
+		-- colors = {}, -- table of hex strings
+		-- termcolors = {} -- table of colour name strings
 	},
 })
 -- 开启 Folding

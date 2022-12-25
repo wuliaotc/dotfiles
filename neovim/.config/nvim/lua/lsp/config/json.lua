@@ -18,7 +18,7 @@ return {
         local function buf_set_keymap(...)
           vim.api.nvim_buf_set_keymap(bufnr, ...)
         end
-        require("keybindings").maplsp(buf_set_keymap)
+        require("keybindings").mapLSP(buf_set_keymap)
       end,
     })
   end,

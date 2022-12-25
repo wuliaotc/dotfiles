@@ -10,6 +10,9 @@ lua require('plugin-config/lualine')
 lua require('plugin-config/nvim-treesitter')
 lua require('plugin-config/telescope')
 lua require('plugin-config/leap')
+lua require('plugin-config/autopairs')
+lua require('plugin-config/which-key')
+lua require('plugin-config/tools')
 " lsp
 lua require('lsp/setup')
 " format

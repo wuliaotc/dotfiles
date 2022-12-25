@@ -8,7 +8,9 @@ return require("packer").startup(function()
 		"ellisonleao/gruvbox.nvim",
 		requires = { "rktjmp/lush.nvim" },
 	})
-
+	--- tab
+	-- using packer.nvim
+	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
 	--- nord theme
 	use("shaunsingh/nord.nvim")
 	--- status line
@@ -17,6 +19,8 @@ return require("packer").startup(function()
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 	-- code
+	--_ cmp
+	use("windwp/nvim-autopairs")
 	--- highlight
 
 	---- nvim-tree (新增)
@@ -36,6 +40,11 @@ return require("packer").startup(function()
 		requires = { "nvim-treesitter/nvim-treesitter" },
 		"Badhi/nvim-treesitter-cpp-tools",
 	})
+	----- rainbow
+	use({
+		requires = { "nvim-treesitter/nvim-treesitter" },
+		"p00f/nvim-ts-rainbow",
+	})
 
 	-- language
 	--- lua enhanced
@@ -51,6 +60,8 @@ return require("packer").startup(function()
 	use("simrat39/symbols-outline.nvim")
 	--- format
 	use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
+	--- comment
+	use("numToStr/Comment.nvim")
 	--- nvim-cmp
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-nvim-lsp")
@@ -74,9 +85,13 @@ return require("packer").startup(function()
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	-- tool
+	--- mkdir
+	-- mkdir
+	use("jghauser/mkdir.nvim")
+	--- which key
+	use("folke/which-key.nvim")
 	-- git
-	-- git
-	use({ "lewis6991/gitsigns.nvim" })
+	use("lewis6991/gitsigns.nvim")
 	-- -- leap
 	use({ "ggandor/leap.nvim", requires = { { "tpope/vim-repeat" } } })
 end)

@@ -9,7 +9,11 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+-- bufferline
+---vim.opt.termguicolors = true
 
+---local bufferline = require("bufferline")
+---require("bufferline").setup{}
 -- lspkind
 local lspkind = require("lspkind")
 lspkind.init({
