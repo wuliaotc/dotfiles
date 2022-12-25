@@ -9,3 +9,9 @@ config.NOTIFY_ON_TRACK_CHANGED = False # 切换歌曲时显示桌面通知
 config.NOTIFY_DURATION = 5000 # 桌面通知保留时长（毫秒）
 config.MINIMIZE_TO_TRAY = True # 启用最小化到系统托盘，点击托盘图标恢复
 config.CLOSE_TO_TRAY = True # 启用关闭窗口时最小化到系统托盘，右击托盘图标可退出
+
+def set_transparent(arg): 
+    app.ui.page_view.setStyleSheet("background-color: transparent")
+    app.ui.top_panel.setStyleSheet("background-color: transparent")
+
+when('app.initialized', set_transparent)
