@@ -160,15 +160,15 @@ bindsym $mod+r mode "resize"
     bindsym XF86Search exec $menu
 
 # extra key bindings
-    bindsym Ctrl+Alt+Up exec $volume_raise
-    bindsym Ctrl+Alt+Down exec $valume_lower
-    # bindsym Ctrl+Alt+p exec $audio_mute
-    # bindsym Ctrl+Alt+m exec $audio_mic_mute
-    # bindsym Ctrl+Alt+Down exec $bright_down
-    # bindsym Ctrl+Alt+Down exec $bright_up
-    bindsym Ctrl+Alt+p exec $audio_play
-    bindsym Ctrl+Alt+Right exec $audio_next
-    bindsym Ctrl+Alt+Left exec $audio_prev
+    bindsym Control_L+Alt_L+Up exec $volume_raise
+    bindsym Control_L+Alt_L+Down exec $valume_lower
+    # bindsym Control_L+Alt_L+p exec $audio_mute
+    # bindsym Control_L+Alt_L+m exec $audio_mic_mute
+    # bindsym Control_L+Alt_L+Down exec $bright_down
+    # bindsym Control_L+Alt_L+Down exec $bright_up
+    bindsym Control_L+Alt_L+p exec $audio_play
+    bindsym Control_L+Alt_L+Right exec $audio_next
+    bindsym Control_L+Alt_L+Left exec $audio_prev
 
 #
 # keybind for Screen_capture
@@ -180,9 +180,9 @@ bindsym $mod+r mode "resize"
     # print display
     #bindsym Print exec grim -o "$cur_display" |wl-copy
     # print select pos
-    #bindsym Ctrl+Print exec $select |grim -g - - | wl-copy
-    #bindsym Ctrl+Shift+Print exec $select | grim -g - - | swappy -f -
-    #bindsym Ctrl+$mod+Print exec echo "$(slurp;sleep 2)" | grim -g - - |swappy -f -
+    #bindsym Control_L+Print exec $select |grim -g - - | wl-copy
+    #bindsym Control_L+Shift+Print exec $select | grim -g - - | swappy -f -
+    #bindsym Control_L+$mod+Print exec echo "$(slurp;sleep 2)" | grim -g - - |swappy -f -
     # print current window
     #bindsym $mod+Print exec $cur_window | grim -g - - | wl-copy
     #bindsym Shift+$mod+Print exec $cur_window | grim -g - - | wl-copy
@@ -190,30 +190,30 @@ bindsym $mod+r mode "resize"
     # Screenshots:
     # Super+P: Current window
     # Super+Shift+p: Select area
-    # Super+Alt+p Current output
-    # Super+Ctrl+p Select a window
+    # Super+Alt_L+p Current output
+    # Super+Control_L+p Select a window
     # select area
-    bindsym Ctrl+Print                  exec grimshot copy area
-    bindsym Ctrl+Shift+Print            exec grimshot save area - |swappy -f -
+    bindsym Control_L+Print                  exec grimshot copy area
+    bindsym Control_L+Shift+Print            exec grimshot save area - |swappy -f -
     # current output
     bindsym Print                       exec grimshot copy output
     bindsym Shift+Print                 exec grimshot save output - |swappy -f -
     # select window
-    bindsym Ctrl+$mod+Print             exec grimshot copy window
-    bindsym Ctrl+$mod+Shift+Print       exec grimshot save window - |swappy -f -
+    bindsym Control_L+$mod+Print             exec grimshot copy window
+    bindsym Control_L+$mod+Shift+Print       exec grimshot save window - |swappy -f -
     # current window
     bindsym $mod+Print                  exec grimshot copy active
     bindsym $mod+Shift+Print            exec grimshot save active - |swappy -f -
     
     #ocr
-    bindsym Ctrl+c+Print exec grimshot save area -|tesseract stdin stdout -l chi_sim|tr -d ' \f'|wl-copy
-    bindsym Ctrl+e+Print exec grimshot save area -|tesseract stdin stdout -l eng|tr -d ' \f'|wl-copy
+    bindsym Control_L+c+Print exec grimshot save area -|tesseract stdin stdout -l chi_sim|tr -d ' \f'|wl-copy
+    bindsym Control_L+e+Print exec grimshot save area -|tesseract stdin stdout -l eng|tr -d ' \f'|wl-copy
 
 #
 # keybind for swayr
 #
 
-    bindsym $mod+Space exec env swayr switch-window >> /tmp/swayr.log 2>&1
+    bindsym Alt_R exec env swayr switch-window >> /tmp/swayr.log 2>&1
 
 #
 # keybind for custom app
@@ -221,14 +221,14 @@ bindsym $mod+r mode "resize"
 
     # lock
     bindsym $mod+l exec loginctl lock-session
-    bindsym Ctrl+Alt+Delete exec 'wlogout -b 2'
+    bindsym Control_L+Alt_L+Delete exec 'wlogout -b 2'
 
     #display
     set $display_setting exec wlay
-    bindsym Ctrl+p exec $display_setting
+    bindsym Control_L+p exec $display_setting
     # start golden_dict
     set $run_goldendict exec goldendict
-    bindsym Ctrl+F11 exec $run_goldendict
+    bindsym Control_L+F11 exec $run_goldendict
 
     # toggle waybar
     bindsym $mod+h exec killall -SIGUSR1 waybar

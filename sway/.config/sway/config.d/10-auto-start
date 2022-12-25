@@ -22,6 +22,7 @@ exec 'sleep $wait_time;fcitx5 '
 # notify
 # app
 exec 'sleep $wait_time;exec keepassxc'
+exec 'sleep $wait_time;exec pcmanfm -d'
 exec 'sleep $wait_time;pkill v2ray;exec qv2ray'
-exec 'sleep $wait_time;exec syncthingtray-qt6'
+#exec 'sleep $wait_time;exec syncthingtray-qt6'
 
