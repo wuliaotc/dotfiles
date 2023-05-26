@@ -4,10 +4,6 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-# xwayland hdpi background
-exec xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
-exec echo "Xft.dpi: 192" | xrdb -merge
-
 # https //github.com/swaywm/sway/issues/5732 
 # exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 # exec systemctl --user import-environment
@@ -65,7 +61,7 @@ exec swayidle -w \
 	timeout 600 'swaylock' \
 	timeout 1000 'swaymsg "output * dpms off"' \
 	resume 'swaymsg "output * dpms on"' \
-	timeout 12000 'sleep 5;systemctl suspend' \
+	timeout 1800 'sleep 5;systemctl suspend' \
     before-sleep 'swaylock -f' \
 	after-resume 'sleep 5;killall -SIGUSR2 waybar;' \
 	lock 'swaylock -f'

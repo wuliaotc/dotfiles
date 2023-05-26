@@ -160,15 +160,15 @@ bindsym $mod+r mode "resize"
     bindsym XF86Search exec $menu
 
 # extra key bindings
-    bindsym Control_L+Alt_L+Up exec $volume_raise
-    bindsym Control_L+Alt_L+Down exec $valume_lower
-    # bindsym Control_L+Alt_L+p exec $audio_mute
-    # bindsym Control_L+Alt_L+m exec $audio_mic_mute
-    # bindsym Control_L+Alt_L+Down exec $bright_down
-    # bindsym Control_L+Alt_L+Down exec $bright_up
-    bindsym Control_L+Alt_L+p exec $audio_play
-    bindsym Control_L+Alt_L+Right exec $audio_next
-    bindsym Control_L+Alt_L+Left exec $audio_prev
+    bindsym Control+Alt+Up exec $volume_raise
+    bindsym Control+Alt+Down exec $valume_lower
+    bindsym Control+Alt+m exec $audio_mute
+    # bindsym Control+Alt+m exec $audio_mic_mute
+    # bindsym Control+Alt+Down exec $bright_down
+    # bindsym Control+Alt+Down exec $bright_up
+    bindsym Control+Alt+p exec $audio_play
+    bindsym Control+Alt+Right exec $audio_next
+    bindsym Control+Alt+Left exec $audio_prev
 
 #
 # keybind for Screen_capture
@@ -193,21 +193,21 @@ bindsym $mod+r mode "resize"
     # Super+Alt_L+p Current output
     # Super+Control_L+p Select a window
     # select area
-    bindsym Control_L+Print                  exec grimshot copy area
-    bindsym Control_L+Shift+Print            exec grimshot save area - |swappy -f -
+    bindsym Control+Print                  exec grimshot copy area
+    bindsym Control+Shift+Print            exec grimshot save area - |swappy -f -
     # current output
     bindsym Print                       exec grimshot copy output
     bindsym Shift+Print                 exec grimshot save output - |swappy -f -
     # select window
-    bindsym Control_L+$mod+Print             exec grimshot copy window
-    bindsym Control_L+$mod+Shift+Print       exec grimshot save window - |swappy -f -
+    bindsym Control+$mod+Print             exec grimshot copy window
+    bindsym Control+$mod+Shift+Print       exec grimshot save window - |swappy -f -
     # current window
     bindsym $mod+Print                  exec grimshot copy active
     bindsym $mod+Shift+Print            exec grimshot save active - |swappy -f -
     
     #ocr
-    bindsym Control_L+c+Print exec grimshot save area -|tesseract stdin stdout -l chi_sim|tr -d ' \f'|wl-copy
-    bindsym Control_L+e+Print exec grimshot save area -|tesseract stdin stdout -l eng|tr -d ' \f'|wl-copy
+    bindsym Control+c+Print exec grimshot save area -|tesseract stdin stdout -l chi_sim|tr -d ' \f'|wl-copy
+    bindsym Control+e+Print exec grimshot save area -|tesseract stdin stdout -l eng|tr -d ' \f'|wl-copy
 
 #
 # keybind for swayr
@@ -221,14 +221,14 @@ bindsym $mod+r mode "resize"
 
     # lock
     bindsym $mod+l exec loginctl lock-session
-    bindsym Control_L+Alt_L+Delete exec 'wlogout -b 2'
+    bindsym Control+Alt+Delete exec 'wlogout -b 2'
 
     #display
     set $display_setting exec wlay
-    bindsym Control_L+p exec $display_setting
+    bindsym Control+p exec $display_setting
     # start golden_dict
-    set $run_goldendict exec goldendict
-    bindsym Control_L+F11 exec $run_goldendict
+    #set $run_goldendict exec goldendict
+    #bindsym Control+F11 exec $run_goldendict
 
     # toggle waybar
     bindsym $mod+h exec killall -SIGUSR1 waybar

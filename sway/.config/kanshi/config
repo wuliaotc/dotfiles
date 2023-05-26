@@ -28,3 +28,7 @@ profile double {
   output DP-4 mode 3840x2160@60.000Hz position 0,0 scale 2
   output HDMI-A-1 mode 1920x1080 position 1920,0 
 }
+profile single-DP+headless {
+    output DP-1 mode 3840x2160@60.000Hz position 0,0 scale 2
+    output HEADLESS-1 mode 1920x1080 position 3840,0 
+}
