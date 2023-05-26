@@ -85,13 +85,15 @@ return require("packer").startup(function()
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	-- tool
+  --- toggle terminal
+  use {"akinsho/toggleterm.nvim", tag = '*'}
 	--- mkdir
-	-- mkdir
 	use("jghauser/mkdir.nvim")
 	--- which key
 	use("folke/which-key.nvim")
 	-- git
 	use("lewis6991/gitsigns.nvim")
+	use('f-person/git-blame.nvim')
 	-- -- leap
 	use({ "ggandor/leap.nvim", requires = { { "tpope/vim-repeat" } } })
 end)
