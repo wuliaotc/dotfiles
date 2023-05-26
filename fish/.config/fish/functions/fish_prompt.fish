@@ -1,39 +1,90 @@
 function fish_prompt
-end
-
+end # In case this file gets loaded non-interactively, e.g by conda
 status is-interactive || exit
 
 _tide_remove_unusable_items
+_tide_cache_variables
+_tide_parent_dirs
+source (functions --details _tide_pwd)
 
-set -g _tide_left_prompt_display_var _tide_left_prompt_display_$fish_pid
-set -gx _tide_right_prompt_display_var _tide_right_prompt_display_$fish_pid
+set -l prompt_var _tide_prompt_$fish_pid
+set -U $prompt_var # Set var here so if we erase $prompt_var, bg job won't set a uvar
 
-function _tide_refresh_prompt --on-variable $_tide_left_prompt_display_var --on-variable $_tide_right_prompt_display_var
-    set -g _tide_self_repainting # prevents us from creating a second background job
-    commandline --function repaint
+set_color normal | read -l color_normal
+status fish-path | read -l fish_path
+
+# _tide_repaint prevents us from creating a second background job
+function _tide_refresh_prompt --on-variable $prompt_var --on-variable COLUMNS
+    set -g _tide_repaint
+    commandline -f repaint
 end
 
+if contains newline $_tide_left_items # two line prompt initialization
+    test "$tide_prompt_add_newline_before" = true && set -l add_newline '\n'
+
+    set_color $tide_prompt_color_frame_and_connection -b normal | read -l prompt_and_frame_color
+
+    set -l column_offset 5
+    test "$tide_left_prompt_frame_enabled" = true &&
+        set -l top_left_frame "$prompt_and_frame_color╭─" &&
+        set -l bot_left_frame "$prompt_and_frame_color╰─" &&
+        set column_offset (math $column_offset-2)
+    test "$tide_right_prompt_frame_enabled" = true &&
+        set -l top_right_frame "$prompt_and_frame_color─╮" &&
+        set -l bot_right_frame "$prompt_and_frame_color─╯" &&
+        set column_offset (math $column_offset-2)
+
+    eval "
 function fish_prompt
-    set -lx _tide_last_status $status
-    set -lx _tide_last_pipestatus $pipestatus
+    _tide_status=\$status _tide_pipestatus=\$pipestatus if not set -e _tide_repaint
+        jobs -q && set -lx _tide_jobs
+        $fish_path -c \"set _tide_pipestatus \$_tide_pipestatus
+set _tide_parent_dirs \$_tide_parent_dirs
+PATH=\$(string escape \"\$PATH\") CMD_DURATION=\$CMD_DURATION fish_bind_mode=\$fish_bind_mode set $prompt_var (_tide_2_line_prompt)\" &
+        builtin disown
 
-    if not set -e _tide_self_repainting
-        _tide_jobs_number=(jobs --pid | count) fish --command "
-            set -g CMD_DURATION $CMD_DURATION
-            set -g COLUMNS $COLUMNS
-            set -g fish_bind_mode $fish_bind_mode
-            set -g fish_term24bit $fish_term24bit
-            set -U $_tide_left_prompt_display_var (_tide_prompt)" &
-
-        command kill $_tide_last_pid 2>/dev/null
-        set -g _tide_last_pid (jobs --last --pid) # Replace with $last_pid in Fish 3.3.0
-        builtin disown $_tide_last_pid 2>/dev/null
+        command kill \$_tide_last_pid 2>/dev/null
+        set -g _tide_last_pid \$last_pid
     end
 
-    string unescape $$_tide_left_prompt_display_var
+    math \$COLUMNS-(string length -V \"\$$prompt_var[1][1]\$$prompt_var[1][3]\")+$column_offset | read -lx dist_btwn_sides
+
+    echo -ns $add_newline'$top_left_frame'(string replace @PWD@ (_tide_pwd) \"\$$prompt_var[1][1]\")'$prompt_and_frame_color'
+    string repeat -Nm(math max 0, \$dist_btwn_sides-\$_tide_pwd_len) '$tide_prompt_icon_connection'
+    echo -ns \"\$$prompt_var[1][3]$top_right_frame\"\n\"$bot_left_frame\$$prompt_var[1][2]$color_normal \"
 end
 
-# Double underscores to avoid erasing this function on uninstall
-function __tide_on_fish_exit --on-event fish_exit
-    set -e $_tide_left_prompt_display_var $_tide_right_prompt_display_var
+function fish_right_prompt
+    string unescape \"\$$prompt_var[1][4]$bot_right_frame$color_normal\"
+end"
+else # one line prompt initialization
+    test "$tide_prompt_add_newline_before" = true && set -l add_newline '\0'
+
+    math 5 -$tide_prompt_min_cols | read -l column_offset
+    test $column_offset -ge 0 && set column_offset "+$column_offset"
+
+    eval "
+function fish_prompt
+    _tide_status=\$status _tide_pipestatus=\$pipestatus if not set -e _tide_repaint
+        jobs -q && set -lx _tide_jobs
+        $fish_path -c \"set _tide_pipestatus \$_tide_pipestatus
+set _tide_parent_dirs \$_tide_parent_dirs
+PATH=\$(string escape \"\$PATH\") CMD_DURATION=\$CMD_DURATION fish_bind_mode=\$fish_bind_mode set $prompt_var (_tide_1_line_prompt)\" &
+        builtin disown
+
+        command kill \$_tide_last_pid 2>/dev/null
+        set -g _tide_last_pid \$last_pid
+    end
+
+    math \$COLUMNS-(string length -V \"\$$prompt_var[1][1]\$$prompt_var[1][2]\")$column_offset | read -lx dist_btwn_sides
+    string replace @PWD@ (_tide_pwd) $add_newline \$$prompt_var[1][1]'$color_normal '
 end
+
+function fish_right_prompt
+    string unescape \"\$$prompt_var[1][2]$color_normal\"
+end"
+end
+
+eval "function _tide_on_fish_exit --on-event fish_exit
+    set -e $prompt_var
+end"
