@@ -36,7 +36,7 @@ pluginKeys.mapLSP = function(mapbuf)
 	-- rename
 	mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 	-- code action
-	mapbuf("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+	mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
 	-- go xx
 	mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 	mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
@@ -50,8 +50,8 @@ pluginKeys.mapLSP = function(mapbuf)
 	mapbuf("n", "gn", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
 	-- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
 	-- leader + =
-	---mapbuf("n", "gf", "<cmd>lua vim.lsp.formatexpr()<CR>", opt)
-	mapbuf("n", "gf", "vim.lsp.buf.range_formatting()<CR>",opt)
+	mapbuf("n", "gf", "<cmd>lua vim.lsp.formatexpr()<CR>", opt)
+	mapbuf("n", "<leader>gf", "vim.lsp.buf.range_formatting()<CR>",opt)
 	-- format line mapbuf("n", "gq", "<cmd>lua vim.lsp.formatexpr()<CR>", opt)
 	-- mapbuf('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opt)
 	-- mapbuf('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opt)

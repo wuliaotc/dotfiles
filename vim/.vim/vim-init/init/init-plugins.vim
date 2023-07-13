@@ -22,7 +22,7 @@ if !exists('g:bundles')
 	let g:bundles += ['cppenhanced']
 	" let g:bundles += ['echodoc']
 	let g:bundles += ['clang-format']
-	let g:bundles += ['gutentags']
+	" let g:bundles += ['gutentags']
 	let g:bundles += ['LeaderF']
 	let g:bundles += ['coc']
 	let g:bundles += ['vim-go']
@@ -81,8 +81,8 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 	Plug 'mhinz/vim-signify'
 
 	" gutentags 自动索引
-	Plug 'ludovicchabant/vim-gutentags'
-	Plug 'skywind3000/gutentags_plus'
+	"Plug 'ludovicchabant/vim-gutentags'
+	"Plug 'skywind3000/gutentags_plus'
 
 	" LeaderF
 	Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }

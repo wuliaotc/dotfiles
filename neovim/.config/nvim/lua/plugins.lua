@@ -76,6 +76,8 @@ return require("packer").startup(function()
 	-- UI 增强
 	use("onsails/lspkind-nvim")
 	use("kkharji/lspsaga.nvim")
+  -- inline hints 
+  use("lvimuser/lsp-inlayhints.nvim")
 
 	-- telescope
 	use({
