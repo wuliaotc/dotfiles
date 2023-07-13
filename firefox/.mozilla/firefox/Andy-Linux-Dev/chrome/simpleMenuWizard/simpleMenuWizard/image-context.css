@@ -8,12 +8,12 @@
 /*** image-context.css ***/
 /*** When right-clicking on an image ***/
 
-/* #context-reloadimage,             /* Reload Image                    */
+#context-reloadimage,             /* Reload Image                    */
 /* #context-viewimage,               /* Open Image in New Tab           */
 /* #context-saveimage,               /* Save Image As…                  */
 /* #context-copyimage-contents,      /* Copy Image                      */
 /* #context-copyimage,               /* Copy Image Link                 */
-/* #context-sendimage,               /* Email Image…                    */
+#context-sendimage,               /* Email Image…                    */
 #context-sep-setbackground,       /************ Separator ************/
 #context-setDesktopBackground,    /* Set As Desktop Background...    */
 /* #context-sep-ctp,                 /************ Separator ************/
